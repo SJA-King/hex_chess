@@ -33,3 +33,8 @@ make pawn take another pawn
 dis-allow piece to move into friendly hex
 
 have ability to select piece and show what it could do
+
+# Link
+- https://www.redblobgames.com/grids/hexagons/
+- https://en.wikipedia.org/wiki/Root_system
+- https://levelup.gitconnected.com/chess-python-ca4532c7f5a4
