@@ -1,16 +1,34 @@
 from __future__ import annotations
 from enum import Enum, auto
 from dataclasses import dataclass, field
-from constants import Positions
+# from constants import Positions
+from position import Position
+
+
+class PieceNames(Enum):
+    Piece = "Piece"
+    Pawn = "Pawn"
+    Knight = "Knight"
+    Bishop = "Bishop"
+    Rook = "Rook"
+    Queen = "Queen"
+    King = "King"
 
 
 @dataclass
 class Piece:
     player: str = ""
+    name: PieceNames = PieceNames.Piece
     # step: [str] = field(default_factory=[])  # TODO change to list(Positions)
     # step_repetition: int = 0
     # pieces_taken: [Piece] = field(default_factory=[])
     _value: int = field(default=0)
+    starting_position: Position = None
+
+    def __post_init__(self):
+        if not self.starting_position:
+            raise Exception(f"{self.name} WASNT given a starting position")
+        self.position: Position = self.starting_position
 
     @property
     def value(self) -> int:
@@ -26,35 +44,35 @@ class Piece:
 @dataclass
 class Pawn(Piece):
     def __init__(self):
-        super().__init__(_value=1)
+        super().__init__(name=PieceNames.Pawn, _value=1)
 
 
 @dataclass
 class Bishop(Piece):
     def __init__(self):
-        super().__init__(_value=3)
+        super().__init__(name=PieceNames.Bishop, _value=3)
 
 
 @dataclass
 class Knight(Piece):
     def __init__(self):
-        super().__init__(_value=3)
+        super().__init__(name=PieceNames.Knight, _value=3)
 
 
 @dataclass
 class Rook(Piece):
     def __init__(self):
-        super().__init__(_value=5)
+        super().__init__(name=PieceNames.Rook, _value=5)
 
 
 @dataclass
 class Queen(Piece):
     def __init__(self):
-        super().__init__(_value=9)
+        super().__init__(name=PieceNames.Queen, _value=9)
 
 
 @dataclass
 class King(Piece):
     def __init__(self):
-        super().__init__(_value=99)
+        super().__init__(name=PieceNames.King, _value=99)
 
