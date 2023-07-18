@@ -1,9 +1,13 @@
 import pytest
 from ..pieces import Pawn, Piece, King, Queen, Knight, Rook, Bishop
+from ..constants import Players
+from ..position import Position
+
+x = Position(1,1,1)
 
 
 @pytest.mark.parametrize("piece1, piece2", [
-    [King(), Queen()],
+    [King(player=Players.WHITE, starting_position=x), Queen()],
     [Queen(), Rook()],
     [Rook(), Knight()],
     [Bishop(), Pawn()],

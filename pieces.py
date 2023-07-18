@@ -1,18 +1,8 @@
 from __future__ import annotations
 from enum import Enum, auto
 from dataclasses import dataclass, field
-# from constants import Positions
+from constants import PieceNames, Players
 from position import Position
-
-
-class PieceNames(Enum):
-    Piece = "Piece"
-    Pawn = "Pawn"
-    Knight = "Knight"
-    Bishop = "Bishop"
-    Rook = "Rook"
-    Queen = "Queen"
-    King = "King"
 
 
 @dataclass
@@ -22,17 +12,19 @@ class Piece:
     # step: [str] = field(default_factory=[])  # TODO change to list(Positions)
     # step_repetition: int = 0
     # pieces_taken: [Piece] = field(default_factory=[])
-    _value: int = field(default=0)
+    value: int = field(default=0)
     starting_position: Position = None
 
     def __post_init__(self):
+        if not self.player:
+            raise Exception(f"{self.name.value} WASNT given a player!")
         if not self.starting_position:
-            raise Exception(f"{self.name} WASNT given a starting position")
+            raise Exception(f"{self.name.value} WASNT given a starting position!")
         self.position: Position = self.starting_position
 
-    @property
-    def value(self) -> int:
-        return self._value
+    # @property
+    # def value(self) -> int:
+    #     return self._value
 
     def __ge__(self, other: Piece):
         return self.value > other.value
