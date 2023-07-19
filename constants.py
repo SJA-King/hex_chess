@@ -8,13 +8,13 @@ class HexColours(Enum):
     WHITE = auto()
 
 
-class Players(Enum):
+class Player(Enum):
     WHITE = "White"
     BLACK = "Black"
 
 
 class PieceNames(Enum):
-    Piece = "Piece"
+    Piece = None
     Pawn = "Pawn"
     Knight = "Knight"
     Bishop = "Bishop"
