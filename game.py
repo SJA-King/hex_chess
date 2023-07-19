@@ -9,6 +9,9 @@
 
 import sys
 
+from pieces import Pawn, Knight, Bishop, Rook, Queen, King
+from position import Position, Step
+
 
 def info(msg: str):
     print(f"{msg}", file=sys.stderr, flush=True)
@@ -29,6 +32,14 @@ def make_board():
 
 def main():
     print("Want to Play Hex Chess?!")
+    king = King(player="Simon", start=Position(0,0,0))
+    print(king)
+    queen = Queen()
+    rook = Rook()
+    bishop = Bishop()
+    knight = Knight()
+    pawn = Pawn(player="Simon", start=Position(0,0,0))
+    print(pawn)
 
 
 if __name__ == "__main__":

@@ -4,10 +4,11 @@ from ..constants import Players
 from ..position import Position
 
 x = Position(1,1,1)
-
+king = King(player=Players.WHITE, starting_position=x)
+queen = Queen(Players.BLACK, x)
 
 @pytest.mark.parametrize("piece1, piece2", [
-    [King(player=Players.WHITE, starting_position=x), Queen()],
+    [, Queen()],
     [Queen(), Rook()],
     [Rook(), Knight()],
     [Bishop(), Pawn()],
