@@ -5,13 +5,15 @@ from constants import HexColours
 from .position import Position
 
 
-
-
 @dataclass
 class Hex:
-    col: int = None
-    ring: int = None
     colour: HexColours = None
     position: Position = None
-    # _piece: # TODO a piece has a hex that it is on? DONT want circular imports
-    # neighbours: dict[Positions, Hex] = field(default_factory={})
+
+    def __post_init__(self):
+        if not self.colour:
+            raise Exception(f"Hex {self} WASNT given a Colour!")
+        if not self.position:
+            raise Exception(f"Hex {self} WASNT given a Position!")
+        self.piece = None
+

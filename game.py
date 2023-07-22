@@ -30,6 +30,14 @@ def make_board():
     raise NotImplementedError
 
 
+class Game:
+    def __init__(self):
+
+
+    def hex_at_position(self, position: Position):
+
+
+
 def main():
     print("Want to Play Hex Chess?!")
     king = King(player="Simon", start=Position(0,0,0))

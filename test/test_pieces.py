@@ -1,19 +1,27 @@
 import pytest
 from ..pieces import Pawn, Piece, King, Queen, Knight, Rook, Bishop
-from ..constants import Players
+from ..constants import Player
 from ..position import Position
 
-x = Position(1,1,1)
-king = King(player=Players.WHITE, starting_position=x)
-queen = Queen(Players.BLACK, x)
+a_king = King(player=Player.WHITE, start=Position(1,1,1))
+a_queen = Queen(player=Player.WHITE, start=Position(1,1,1))
+a_bishop = Bishop(player=Player.WHITE, start=Position(1,1,1))
+a_rook = Rook(player=Player.WHITE, start=Position(1,1,1))
+a_pawn = Pawn(player=Player.WHITE, start=Position(1,1,1))
+a_knight = Knight(player=Player.WHITE, start=Position(1,1,1))
+
 
 @pytest.mark.parametrize("piece1, piece2", [
-    [, Queen()],
-    [Queen(), Rook()],
-    [Rook(), Knight()],
-    [Bishop(), Pawn()],
-    [Knight(), Pawn()],
+    [a_king, a_queen],
+    [a_queen, a_rook],
+    [a_rook, a_knight],
+    [a_bishop, a_pawn],
+    [a_knight, a_pawn],
 ])
 def test_pieces_values(piece1: Piece, piece2: Piece):
 
     assert piece1.value > piece2.value, f"Piece2={piece2} has HIGHER value than Piece1={piece1}"
+
+# TODO test piece creation
+# TODO test no player results in exception
+# TODO test no start position results in exception
