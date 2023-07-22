@@ -3,6 +3,7 @@
 # def set_all_pieces
 # def place_players_pieces
 # def place_piece
+from .hexes import Hex
 
 # TODO Make a list of all positions to Hexes e.g. [Position(0,-1,3): Hex]
 
@@ -30,11 +31,32 @@ def make_board():
     raise NotImplementedError
 
 
+# TODO make a singleton!
 class Game:
     def __init__(self):
+        self.board = None
 
 
     def hex_at_position(self, position: Position):
+        raise NotImplementedError
+
+    def piece_on_hex(self, a_hex: Hex):
+        raise NotImplementedError
+
+    def piece_at_position(self, position: Position):
+        raise NotImplementedError
+
+
+    def make_board(self):
+        raise NotImplementedError
+
+    # TODO Need to check board is expected size - add a validate board
+
+    # TODO add validate pieces on board, at start, during etc
+
+
+    def promote_pawn(self):
+        raise NotImplementedError
 
 
 
