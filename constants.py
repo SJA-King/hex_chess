@@ -3,10 +3,22 @@ from enum import Enum, auto
 
 
 class HexColours(Enum):
-    GREY = auto()
-    BLACK = auto()
-    WHITE = auto()
+    GREY = 1
+    WHITE = 2
+    BLACK = 3
 
+    def __next__(self):
+        """ Provide the next colour in a sequence."""
+        new_value = self.value + 1
+        if new_value > 3:
+            new_value = 1
+        return HexColours(new_value)
+
+# TODO make this a test
+# q = HexColours.GREY
+# print(next(q))
+# print(next(q))
+# print(next(q))
 
 class Player(Enum):
     WHITE = "White"

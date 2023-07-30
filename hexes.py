@@ -2,7 +2,7 @@ from __future__ import annotations
 from enum import Enum, auto
 from dataclasses import dataclass, field
 from constants import HexColours
-from .position import Position
+from position import Position
 
 
 @dataclass

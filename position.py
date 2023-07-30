@@ -1,4 +1,6 @@
 from __future__ import annotations
+
+import sys
 from dataclasses import dataclass
 from enum import Enum, auto
 
@@ -8,6 +10,11 @@ class Position:
     q: int = None
     r: int = None
     s: int = None
+
+    def __init__(self, q, r, s):
+        self.q = int(q)
+        self.r = int(r)
+        self.s = int(s)
 
     def __add__(self, other: Position) -> Position:
         new_q = self.q + other.q
@@ -19,6 +26,12 @@ class Position:
         # assert 5 > new_s > -5
         return Position(new_q, new_r, new_s)
 
+    def __eq__(self, other):
+        return self.q == other.q and self.r == other.r and self.s == other.s
+
+    def __repr__(self):
+        return f"{self.q},{self.r},{self.s}"
+
     def __post_init__(self):
         if not self.q and self.q != 0:
             raise Exception(f"Q NOT SET!")
@@ -27,6 +40,20 @@ class Position:
         if not self.s and self.s != 0:
             raise Exception(f"S NOT SET!")
 
+    @staticmethod
+    def from_str(position_as_str: str):
+        # TODO need to add various checks here!
+        try:
+            q, r, s = position_as_str.split(",")
+            return Position(q,r,s)
+        except ValueError:
+            # TODO add some more debug
+            print(position_as_str.split(","))
+            sys.exit(1)
+        # self.q = q
+        # self.r = r
+        # self.s = s
+        # return self
 
 class Pace(Enum):
     WALK = auto()  # move one step on a turn
@@ -35,8 +62,8 @@ class Pace(Enum):
 
 @dataclass
 class Step:
-    vector: Position = None
-    pace: Pace = None
+    vector: Position = Position(0, 0, 0)
+    pace: Pace = Pace.WALK
     special: bool = False  # For En-Passant!
 
     def __post_init__(self):

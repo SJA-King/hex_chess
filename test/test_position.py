@@ -20,6 +20,28 @@ def test_add_to_self():
     assert x.s == 9
 
 
+def test_positions_equal():
+    x = Position(1, 2, 3)
+    y = Position(1, 2, 3)
+    assert x == y
+
+
+def test_positions_not_equal():
+    x = Position(1, 2, 3)
+    y = Position(4, 5, 6)
+    assert x != y
+
+
+def test_position_from_str():
+    test_str = "1,2,3"
+    test_position = Position.from_str(position_as_str=test_str)
+    assert test_position.q == 1
+    assert test_position.r == 2
+    assert test_position.s == 3
+
+
+
+
 # test negatives
 # add limit for q,r,s - e.g. -4 and +4 - check for each q,r,s etc
 # check for multiple adds
