@@ -105,28 +105,27 @@ def main():
     # TODO use King's steps in future to do this - maybe?
     # TODO or have generic and King uses that
     # make ring around middle hex
-    counter = 0
-    # TODO make counte go up to 4!!
-    while counter < 2:
+
+    for _ in range(5):
         new_board = the_board.copy()
-        for hex_position, hex in the_board.items():
+        for hex_position, a_hex in the_board.items():
             for vector in ["0,-1,1", "1,0,-1", "-1,1,0"]:
                 a_position = Position.from_str(vector)
-                new_hex_position = hex.position + a_position
-                new_board[str(new_hex_position)] = Hex(colour=next(hex.colour), position=new_hex_position)
+                new_hex_position = a_hex.position + a_position
+                new_board[str(new_hex_position)] = Hex(colour=next(a_hex.colour), position=new_hex_position)
 
             for vector in ["0,1,-1", "1,-1,0", "-1,0,1"]:
                 a_position = Position.from_str(vector)
-                new_hex_position = hex.position + a_position
-                new_board[str(new_hex_position)] = Hex(colour=next(next(hex.colour)), position=new_hex_position)
+                new_hex_position = a_hex.position + a_position
+                new_board[str(new_hex_position)] = Hex(colour=next(next(a_hex.colour)), position=new_hex_position)
 
         the_board = new_board.copy()
         print(the_board)
         for i_position, i_hex in the_board.items():
             print(f"Position: {i_position} -> {i_hex}")
-        counter += 1
 
-    # Make '4' sequential rings, dont make NEW hexes if they exist already
+    # Top tile
+    print(the_board["0,-5,5"])
 
 
 if __name__ == "__main__":
