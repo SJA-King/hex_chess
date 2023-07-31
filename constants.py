@@ -20,9 +20,7 @@ class HexColours(Enum):
 # print(next(q))
 # print(next(q))
 
-class Player(Enum):
-    WHITE = "White"
-    BLACK = "Black"
+
 
 
 class PieceNames(Enum):

@@ -4,16 +4,16 @@ from constants import PieceNames
 from position import Position, Step
 
 
-@dataclass
+# TODO change back to dataclass!
 class Piece:
-    player: str = ""
-    name: PieceNames = PieceNames.Piece.value
-    value: int = field(default=0)
-    start: Position = None
-
-    def __init__(self):
-        self.last_moved: int = 0
+    def __init__(self, player: str ):
+        self.player: str = player
+        self.name: PieceNames = PieceNames.Piece.value
+        self.value: int = 0
+        self.start: Position = Position(0,0,0)
+        self.turn_last_moved: int = 0
         self.pieces_taken: [Piece] = None
+        self.placed: bool = False
         self.moved: bool = False
         self.current: Position = self.start
         self.last: Position = self.start
@@ -21,8 +21,9 @@ class Piece:
     def __post_init__(self):
         if not self.player:
             raise Exception(f"{self.name.value} WASNT given a player!")
-        if not self.start:
-            raise Exception(f"{self.name.value} WASNT given a starting position!")
+        # TODO think about checking piece after its been given to player!
+        # if not self.start:
+        #     raise Exception(f"{self.name.value} WASNT given a starting position!")
 
     def __ge__(self, other: Piece):
         return self.value > other.value
@@ -43,8 +44,9 @@ class Piece:
         raise NotImplementedError
 
 
-@dataclass
 class Pawn(Piece):
+    def __init__(self, player):
+        super().__init__(player)
 
     def __post_init__(self):
         self.name = PieceNames.Pawn.value
