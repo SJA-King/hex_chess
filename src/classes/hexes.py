@@ -66,3 +66,25 @@ class HexTile:
     def render(self, screen) -> None:
         """Renders the hexagon on the screen"""
         pygame.draw.polygon(screen, self.highlight_colour, self.vertices)
+
+    def compute_neighbours(self, hexagons: List[HexTile]) -> List[HexTile]:
+        """Returns hexagons whose centres are two minimal radiuses away from self.centre"""
+        # could cache results for performance
+        return [hexagon for hexagon in hexagons if self.is_neighbour(hexagon)]
+
+    def collide_with_point(self, point: Tuple[float, float]) -> bool:
+        """Returns True if distance from centre to point is less than horizontal_length"""
+        return math.dist(point, self.centre) < self.minimal_radius
+
+    def is_neighbour(self, hexagon: HexTile) -> bool:
+        """Returns True if hexagon centre is approximately
+        2 minimal radiuses away from own centre
+        """
+        distance = math.dist(hexagon.centre, self.centre)
+        return math.isclose(distance, 2 * self.minimal_radius, rel_tol=0.05)
+
+    def render_highlight(self, screen, border_colour) -> None:
+        """Draws a border around the hexagon with the specified colour"""
+        self.highlight_tick = self.max_highlight_ticks
+        # pygame.draw.polygon(screen, self.highlight_colour, self.vertices)
+        pygame.draw.aalines(screen, border_colour, closed=True, points=self.vertices)

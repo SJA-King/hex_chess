@@ -88,15 +88,15 @@ def render(screen, hexagons):
     for hexagon in hexagons:
         hexagon.render(screen)
 
-    # # draw borders around colliding hexagons and neighbours
-    # mouse_pos = pygame.mouse.get_pos()
-    # colliding_hexagons = [
-    #     hexagon for hexagon in hexagons if hexagon.collide_with_point(mouse_pos)
-    # ]
-    # for hexagon in colliding_hexagons:
-    #     for neighbour in hexagon.compute_neighbours(hexagons):
-    #         neighbour.render_highlight(screen, border_colour=(100, 100, 100))
-    #     hexagon.render_highlight(screen, border_colour=(0, 0, 0))
+    # draw borders around colliding hexagons and neighbours
+    mouse_pos = pygame.mouse.get_pos()
+    colliding_hexagons = [
+        hexagon for hexagon in hexagons if hexagon.collide_with_point(mouse_pos)
+    ]
+    for hexagon in colliding_hexagons:
+        for neighbour in hexagon.compute_neighbours(hexagons):
+            neighbour.render_highlight(screen, border_colour=(100, 100, 100))
+        hexagon.render_highlight(screen, border_colour=(0, 0, 0))
     pygame.display.flip()
 
 
