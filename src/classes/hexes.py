@@ -35,12 +35,6 @@ class HexTile:
         if self.highlight_tick > 0:
             self.highlight_tick -= 1
 
-    # @property
-    # def centre(self) -> Tuple[float, float]:
-    #     """Centre of the hexagon"""
-    #     x, y = self.position
-    #     return x, y + self.radius
-
     @property
     def minimal_radius(self) -> float:
         """Horizontal length of the hexagon"""
@@ -58,10 +52,8 @@ class HexTile:
         """
         Returns a list of the hexagon's vertices as x, y tuples
         """
-        # pylint: disable=invalid-name
         x, y = self.centre
         half_radius = self.radius / 2
-        # minimal_radius = self.minimal_radius
         return [
             (x - self.radius, y),
             (x - half_radius, y + self.minimal_radius),
@@ -70,13 +62,6 @@ class HexTile:
             (x + half_radius, y - self.minimal_radius),
             (x - half_radius, y - self.minimal_radius),
         ]
-
-    # (x, y),
-    # (x - half_radius, y + minimal_radius),
-    # (x, y + 2 * minimal_radius),
-    # (x + self.radius, y + 2 * minimal_radius),
-    # (x + 3 * half_radius, y + minimal_radius),
-    # (x + self.radius, y),
 
     def render(self, screen) -> None:
         """Renders the hexagon on the screen"""
