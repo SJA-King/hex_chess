@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from functools import lru_cache
+
 from constants import HexColours
 from position import Position
 
@@ -67,9 +69,9 @@ class HexTile:
         """Renders the hexagon on the screen"""
         pygame.draw.polygon(screen, self.highlight_colour, self.vertices)
 
+    @lru_cache
     def compute_neighbours(self, hexagons: List[HexTile]) -> List[HexTile]:
         """Returns hexagons whose centres are two minimal radiuses away from self.centre"""
-        # could cache results for performance
         return [hexagon for hexagon in hexagons if self.is_neighbour(hexagon)]
 
     def collide_with_point(self, point: Tuple[float, float]) -> bool:
