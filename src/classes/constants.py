@@ -1,5 +1,12 @@
 from __future__ import annotations
 from enum import Enum, auto
+from pathlib import Path
+
+
+pieces_path = Path(__file__).parent
+classes_path = pieces_path.parent
+src_path = classes_path.parent
+images_path = src_path / "images"
 
 
 class HexColours(Enum):
@@ -42,6 +49,6 @@ class PieceNames(Enum):
 
 
 class PlayerColour(Enum):
-    NULL = auto()
-    WHITE = auto()
-    BLACK = auto()
+    NULL = ""
+    WHITE = "w"  # todo change to white/black etc
+    BLACK = "b"

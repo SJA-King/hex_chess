@@ -10,6 +10,8 @@ class Piece:
     name: PieceNames = PieceNames.Piece
     colour: PlayerColour = PlayerColour.NULL
     position: Position = Position(0, 0, 0)
+    hex_width: int = 0
+    hex_height: int = 0
 
     def __post_init__(self):
         self.moved: bool = False

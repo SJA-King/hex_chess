@@ -1,9 +1,10 @@
 import pygame
 
 from src.classes.board import make_hex_board
+from src.classes.hexes import HexTile
 
 
-def render(screen, hexagons):
+def render(screen, hexagons: list[HexTile]):
     """Renders hexagons on the screen"""
     screen.fill((0, 0, 0))
     for hexagon in hexagons:

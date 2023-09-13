@@ -1,14 +1,21 @@
 from dataclasses import dataclass
+from pathlib import Path
+
+import pygame
 
 from src.classes.piece import Piece
 from src.classes.position import Position
-from src.classes.constants import PlayerColour, PieceNames
+from src.classes.constants import PlayerColour, PieceNames, images_path
 
 
 @dataclass
 class Pawn(Piece):
     def __post_init__(self):
         self.name = PieceNames.Pawn
+
+        img_path = images_path / f"{self.colour.WHITE.value}_pawn.png"
+        self.img = pygame.image.load(img_path)
+        self.img = pygame.transform.scale(self.img, (self.hex_width*0.85, self.hex_height*0.85))
 
     @property
     def possible_moves(self):

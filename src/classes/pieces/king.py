@@ -21,4 +21,5 @@ class King(Piece):
             Position(1, 0, -1),
         ]
 
-    def get_available_moves(self):
+    def get_available_moves(self, the_board):
+        pass

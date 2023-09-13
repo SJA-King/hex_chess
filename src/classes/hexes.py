@@ -46,3 +46,8 @@ class HexTile:
             pygame.draw.polygon(screen, self.colour.rgb_highlight(), self.vertices)
         else:
             pygame.draw.polygon(screen, self.colour.rgb(), self.vertices)
+
+        if self.piece_on_hex is not None:
+            center_hex = self.piece_on_hex.img.get_rect()
+            center_hex.center = self.centre
+            screen.blit(self.piece_on_hex.img, center_hex.topleft)
