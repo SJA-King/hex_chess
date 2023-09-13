@@ -1,0 +1,1 @@
+# TODO this will be the attributes and specifics that which a Pawn has
