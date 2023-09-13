@@ -1,13 +1,12 @@
 from __future__ import annotations
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 from src.classes.position import Position
-from src.classes.constants import PlayerColour, PieceNames
+from src.classes.constants import PlayerColour
 
 
 @dataclass
 class Piece:
-    name: PieceNames = PieceNames.Piece
     colour: PlayerColour = PlayerColour.NULL
     position: Position = Position(0, 0, 0)
     hex_width: int = 0

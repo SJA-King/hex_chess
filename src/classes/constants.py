@@ -3,8 +3,7 @@ from enum import Enum, auto
 from pathlib import Path
 
 
-pieces_path = Path(__file__).parent
-classes_path = pieces_path.parent
+classes_path = Path(__file__).parent
 src_path = classes_path.parent
 images_path = src_path / "images"
 
@@ -39,7 +38,6 @@ class HexColours(Enum):
 
 
 class PieceNames(Enum):
-    Piece = None
     Pawn = "Pawn"
     Knight = "Knight"
     Bishop = "Bishop"
