@@ -33,3 +33,6 @@ class Pawn(Piece):
             print(f"Error - Pawn Colour not in {PlayerColour}")
 
         return moves
+
+    def get_available_moves(self, the_board):
+        pass
