@@ -15,7 +15,6 @@ from typing import List, Tuple
 
 @dataclass
 class HexTile:
-    # colour: HexColours = None
     colour: Tuple[int, ...] = None
     centre: Tuple[float, float] = None
     radius: int = None
@@ -23,18 +22,8 @@ class HexTile:
     max_highlight_ticks: int = 15
 
     def __post_init__(self):
-        # if not self.colour:
-        #     raise Exception(f"Hex {self} WASNT given a Colour!")
-        # if not self.position:
-        #     raise Exception(f"Hex {self} WASNT given a Position!")
         self.piece = None
         self.vertices = self.compute_vertices()
-        # self.highlight_tick = 0
-
-    # def update(self):
-    #     """Updates tile highlights"""
-    #     if self.highlight_tick > 0:
-    #         self.highlight_tick -= 1
 
     @property
     def little_r(self) -> float:
