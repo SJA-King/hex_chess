@@ -7,7 +7,6 @@ from src.classes.constants import PieceNames
 
 @dataclass
 class King(Piece):
-
     def __post_init__(self):
         self.name: PieceNames = PieceNames.King
 
@@ -21,3 +20,5 @@ class King(Piece):
             Position(0, 1, -1),
             Position(1, 0, -1),
         ]
+
+    def get_available_moves(self):

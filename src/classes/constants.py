@@ -22,6 +22,14 @@ class HexColours(Enum):
         }
         return colour_to_rgb[self.value]
 
+    def rgb_highlight(self):
+        colour_to_rgb = {  # todo put proper colours in here
+            1: (255, 0, 0),
+            2: (0, 232, 0),
+            3: (0, 0, 221)
+        }
+        return colour_to_rgb[self.value]
+
 
 class PieceNames(Enum):
     Piece = None

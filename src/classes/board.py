@@ -28,7 +28,7 @@ def make_hex_board(screen_width: int = 0, screen_height: int = 0) -> List[HexTil
     colour = starting_colour
 
     for i_row in range(length_of_middle_column):
-        a_hex = create_hexagon(colour=colour.rgb(), radius=top_hex.radius, centre=(middle_x, (top_y + i_row*2*top_hex.little_r)))
+        a_hex = create_hexagon(colour=colour, radius=top_hex.radius, centre=(middle_x, (top_y + i_row*2*top_hex.little_r)))
         colour = next(colour)
         hexagons.append(a_hex)
 
@@ -40,9 +40,9 @@ def make_hex_board(screen_width: int = 0, screen_height: int = 0) -> List[HexTil
 
         for i_row in range(i_rows_in_column):
             y = top_y + i_row*2*top_hex.little_r
-            a_hex = create_hexagon(colour=colour.rgb(), radius=top_hex.radius, centre=(middle_x + col_count * 1.5 * radius_of_hex, y))
+            a_hex = create_hexagon(colour=colour, radius=top_hex.radius, centre=(middle_x + col_count * 1.5 * radius_of_hex, y))
             hexagons.append(a_hex)
-            a_hex = create_hexagon(colour=colour.rgb(), radius=top_hex.radius, centre=(middle_x - col_count * 1.5 * radius_of_hex, y))
+            a_hex = create_hexagon(colour=colour, radius=top_hex.radius, centre=(middle_x - col_count * 1.5 * radius_of_hex, y))
             hexagons.append(a_hex)
             colour = next(colour)
 
