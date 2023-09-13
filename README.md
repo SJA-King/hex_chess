@@ -40,6 +40,7 @@ have ability to select piece and show what it could do
 - starting position
 - current position
 - last position
+- need to have a list of pieces a player has
 
 # Link
 - https://www.redblobgames.com/grids/hexagons/

@@ -66,6 +66,7 @@ class Game:
     def piece_at_position(self, position: Position):
         raise NotImplementedError
 
+    # todo use this to make the hexagons
     def make_board(self):
         """ Create a central Hex, then make 5 rings of Hexes around it """
         self.board = {"0,0,0": Hex(position=Position(0, 0, 0), colour=HexColours.GREY)}
