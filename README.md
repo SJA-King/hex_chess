@@ -34,6 +34,13 @@ dis-allow piece to move into friendly hex
 
 have ability to select piece and show what it could do
 
+- log what pieces a piece took
+- log turn and piece moves
+- add a pieces value back in (e.g. pawn=1, queen=9?)
+- starting position
+- current position
+- last position
+
 # Link
 - https://www.redblobgames.com/grids/hexagons/
 - https://en.wikipedia.org/wiki/Root_system

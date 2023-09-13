@@ -20,10 +20,6 @@ class Position:
         new_q = self.q + other.q
         new_r = self.r + other.r
         new_s = self.s + other.s
-        # TODO dont check out of bounds here!
-        # assert 5 > new_q > -5
-        # assert 5 > new_r > -5
-        # assert 5 > new_s > -5
         return Position(new_q, new_r, new_s)
 
     def __eq__(self, other):
@@ -40,20 +36,7 @@ class Position:
         if not self.s and self.s != 0:
             raise Exception(f"S NOT SET!")
 
-    @staticmethod
-    def from_str(position_as_str: str):
-        # TODO need to add various checks here!
-        try:
-            q, r, s = position_as_str.split(",")
-            return Position(q,r,s)
-        except ValueError:
-            # TODO add some more debug
-            print(position_as_str.split(","))
-            sys.exit(1)
-        # self.q = q
-        # self.r = r
-        # self.s = s
-        # return self
+
 
 class Pace(Enum):
     WALK = auto()  # move one step on a turn
@@ -88,12 +71,7 @@ class Moves(Enum):
     BLACK_PAWN_FIRST_MOVE = Step(Position(0, 2, -2), Pace.WALK)
     # BLACK_PAWN_EN_PASSANT = Step(Position())
 
-    KING_UP_UP = Step(Position(0, -1, 1), Pace.WALK)
-    KING_LEFT_UP = Step(Position(-1, 0, 1), Pace.WALK)
-    KING_LEFT_DOWN = Step(Position(-1, 1, 0), Pace.WALK)
-    KING_RIGHT_UP = Step(Position(1, -1, 0), Pace.WALK)
-    KING_DOWN_DOWN = Step(Position(0, 1, -1), Pace.WALK)
-    KING_RIGHT_DOWN = Step(Position(1, 0, -1), Pace.WALK)
+
 
     ROOK_UP_UP = Step(Position(0, -1, 1), Pace.RUN)
     ROOK_LEFT_UP = Step(Position(-1, 0, 1), Pace.RUN)

@@ -1,7 +1,7 @@
 import math
 from typing import List
 
-from constants import HexColours
+from src.classes.constants import HexColours
 from src.classes.hexes import HexTile
 
 
