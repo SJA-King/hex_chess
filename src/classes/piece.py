@@ -1,1 +1,0 @@
-# TODO this will be abstract class for all pieces
