@@ -12,6 +12,8 @@ class Position:
     s: int = None
 
     def __init__(self, q, r, s):
+        # TODO add check these are ints!
+        # TODO fix un-needed constructor class - put logic in post-init
         self.q = int(q)
         self.r = int(r)
         self.s = int(s)
@@ -25,6 +27,9 @@ class Position:
     def __eq__(self, other):
         return self.q == other.q and self.r == other.r and self.s == other.s
 
+    def __str__(self):
+        return repr(self)
+
     def __repr__(self):
         return f"{self.q},{self.r},{self.s}"
 
@@ -35,6 +40,9 @@ class Position:
             raise Exception(f"R NOT SET!")
         if not self.s and self.s != 0:
             raise Exception(f"S NOT SET!")
+
+    def __hash__(self):
+        return hash(str(self))
 
 
 
