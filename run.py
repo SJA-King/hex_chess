@@ -3,6 +3,7 @@ import pygame
 from src.classes.board import make_hex_board
 from src.classes.hexes import HexTile
 from src.classes.pieces.pawn import Pawn
+from src.classes.pieces.bishop import Bishop
 from src.classes.constants import HexColours, PlayerColour
 from src.classes.position import Position
 
@@ -72,10 +73,6 @@ def main():
     screen = pygame.display.set_mode((screen_width, screen_height))
     clock = pygame.time.Clock()
     hexagons = make_hex_board(screen_width=screen_width, screen_height=screen_height)
-    # hexagons[0].piece_on_hex = Pawn(colour=PlayerColour.WHITE,
-    #                                 position=Position(0, 0, 0),
-    #
-    #
     hex_height = int(2*hexagons[Position(0,-1,1)].little_r)
     hex_width = int(2*hexagons[Position(0,-1,1)].radius)
     hexagons[Position(0,-1,1)].piece_on_hex = Pawn(colour=PlayerColour.BLACK,
@@ -106,7 +103,19 @@ def main():
                                                          position=Position(-i_q, 1+i_q, -1),
                                                          hex_height=hex_height,
                                                          hex_width=hex_width)
-
+    for i_rs in range(3, 6):
+        hexagons[Position(0, -i_rs, i_rs)].piece_on_hex = Bishop(colour=PlayerColour.BLACK,
+                                                         position=Position(0, -i_rs, i_rs),
+                                                         hex_height=hex_height,
+                                                         hex_width=hex_width)
+    # for i_q in range(1, 5):
+        hexagons[Position(0, i_rs, -i_rs)].piece_on_hex = Bishop(colour=PlayerColour.WHITE,
+                                                         position=Position(0, i_rs, -i_rs),
+                                                         hex_height=hex_height,
+                                                         hex_width=hex_width)
+    # 0, -3, 3
+    # 0, -4, 4
+    # 0 ,-5, 5
 
     terminated = False
     while not terminated:
