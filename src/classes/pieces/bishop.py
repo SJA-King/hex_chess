@@ -10,10 +10,7 @@ from src.classes.constants import PlayerColour, PieceNames, images_path
 class Bishop(Piece):
     def __post_init__(self):
         self.name: PieceNames = PieceNames.Bishop
-        # todo put this in Piece
-        img_path = images_path / f"{self.colour.value}_bishop.png"
-        self.img = pygame.image.load(img_path)
-        self.img = pygame.transform.scale(self.img, (self.hex_width*0.85, self.hex_height*0.85))
+        self.set_image()
 
     @property
     def moves(self):

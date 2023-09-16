@@ -9,6 +9,7 @@ from src.classes.constants import PieceNames
 class King(Piece):
     def __post_init__(self):
         self.name: PieceNames = PieceNames.King
+        self.set_image()
 
     @property
     def moves(self):

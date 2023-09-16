@@ -4,6 +4,7 @@ from src.classes.board import make_hex_board
 from src.classes.hexes import HexTile
 from src.classes.pieces.pawn import Pawn
 from src.classes.pieces.bishop import Bishop
+from src.classes.pieces.king import King
 from src.classes.constants import HexColours, PlayerColour
 from src.classes.position import Position
 
@@ -113,9 +114,14 @@ def main():
                                                          position=Position(0, i_rs, -i_rs),
                                                          hex_height=hex_height,
                                                          hex_width=hex_width)
-    # 0, -3, 3
-    # 0, -4, 4
-    # 0 ,-5, 5
+    hexagons[Position(1, -5, 4)].piece_on_hex = King(colour=PlayerColour.BLACK,
+                                                             position=Position(1, -5, 4),
+                                                             hex_height=hex_height,
+                                                             hex_width=hex_width)
+    hexagons[Position(1, 4, -5)].piece_on_hex = King(colour=PlayerColour.WHITE,
+                                                             position=Position(1, 4, -5),
+                                                             hex_height=hex_height,
+                                                             hex_width=hex_width)
 
     terminated = False
     while not terminated:

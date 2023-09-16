@@ -12,9 +12,7 @@ from src.classes.constants import PlayerColour, PieceNames, images_path
 class Pawn(Piece):
     def __post_init__(self):
         self.name = PieceNames.Pawn
-        img_path = images_path / f"{self.colour.value}_pawn.png"
-        self.img = pygame.image.load(img_path)
-        self.img = pygame.transform.scale(self.img, (self.hex_width*0.85, self.hex_height*0.85))
+        self.set_image()
 
     @property
     def possible_moves(self):
