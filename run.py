@@ -92,6 +92,20 @@ def main():
                                                          position=Position(i_q, -1-i_q, 1),
                                                          hex_height=hex_height,
                                                          hex_width=hex_width)
+    # Add white pawns
+    hexagons[Position(0,1,-1)].piece_on_hex = Pawn(colour=PlayerColour.WHITE,
+                                                   position=Position(0,1,-1),
+                                                   hex_height=hex_height,
+                                                   hex_width=hex_width)
+    for i_q in range(1, 5):
+        hexagons[Position(i_q, 1, -1-i_q)].piece_on_hex = Pawn(colour=PlayerColour.WHITE,
+                                                         position=Position(i_q, 1, -1-i_q),
+                                                         hex_height=hex_height,
+                                                         hex_width=hex_width)
+        hexagons[Position(-i_q, 1+i_q, -1)].piece_on_hex = Pawn(colour=PlayerColour.WHITE,
+                                                         position=Position(-i_q, 1+i_q, -1),
+                                                         hex_height=hex_height,
+                                                         hex_width=hex_width)
 
 
     terminated = False
