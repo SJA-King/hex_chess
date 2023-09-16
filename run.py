@@ -74,15 +74,33 @@ def main():
     hexagons = make_hex_board(screen_width=screen_width, screen_height=screen_height)
     # hexagons[0].piece_on_hex = Pawn(colour=PlayerColour.WHITE,
     #                                 position=Position(0, 0, 0),
-    #                                 hex_height=int(2*hexagons[0].little_r),
-    #                                 hex_width=int(2*hexagons[0].radius))
+    #
+    #
+    hex_height = int(2*hexagons[Position(0,-1,1)].little_r)
+    hex_width = int(2*hexagons[Position(0,-1,1)].radius)
+    hexagons[Position(0,-1,1)].piece_on_hex = Pawn(colour=PlayerColour.BLACK,
+                                                   position=Position(0,-1,1),
+                                                   hex_height=hex_height,
+                                                   hex_width=hex_width)
+    # add black pawns
+    for i_q in range(1, 5):
+        hexagons[Position(-i_q, -1, 1+i_q)].piece_on_hex = Pawn(colour=PlayerColour.BLACK,
+                                                         position=Position(i_q, -1, 1+i_q),
+                                                         hex_height=hex_height,
+                                                         hex_width=hex_width)
+        hexagons[Position(i_q, -1-i_q, 1)].piece_on_hex = Pawn(colour=PlayerColour.BLACK,
+                                                         position=Position(i_q, -1-i_q, 1),
+                                                         hex_height=hex_height,
+                                                         hex_width=hex_width)
+
+
     terminated = False
     while not terminated:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 terminated = True
 
-        render(screen, hexagons)
+        render(screen, list(hexagons.values()))
         clock.tick(50)
     pygame.display.quit()
 

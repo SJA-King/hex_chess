@@ -11,7 +11,7 @@ def create_hexagon(colour, centre, radius: int = 50) -> HexTile:
     return HexTile(colour=colour, centre_xy=centre, radius=radius)
 
 
-def make_hex_board(screen_width: int = 0, screen_height: int = 0) -> List[HexTile]:
+def make_hex_board(screen_width: int = 0, screen_height: int = 0) -> dict[Position, HexTile]:
     length_of_middle_column = 11
 
     radius_of_hex = math.floor(int((screen_height / length_of_middle_column) / 2))
@@ -49,4 +49,4 @@ def make_hex_board(screen_width: int = 0, screen_height: int = 0) -> List[HexTil
 
         positions_to_hextiles = new_positions.copy()
 
-    return list(positions_to_hextiles.values())
+    return positions_to_hextiles
