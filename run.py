@@ -7,6 +7,7 @@ from src.classes.pieces.bishop import Bishop
 from src.classes.pieces.king import King
 from src.classes.pieces.queen import Queen
 from src.classes.pieces.rook import Rook
+from src.classes.pieces.knight import Knight
 from src.classes.constants import HexColours, PlayerColour
 from src.classes.position import Position
 
@@ -146,6 +147,22 @@ def main():
                                                        hex_width=hex_width)
     hexagons[Position(-3,5,-2)].piece_on_hex = Rook(colour=PlayerColour.WHITE,
                                                       position=Position(-3,5,-2),
+                                                      hex_height=hex_height,
+                                                      hex_width=hex_width)
+    hexagons[Position(2, -5, 3)].piece_on_hex = Knight(colour=PlayerColour.BLACK,
+                                                     position=Position(2, -5, 3),
+                                                     hex_height=hex_height,
+                                                     hex_width=hex_width)
+    hexagons[Position(-2, -3, 5)].piece_on_hex = Knight(colour=PlayerColour.BLACK,
+                                                      position=Position(-2, -3, 5),
+                                                      hex_height=hex_height,
+                                                      hex_width=hex_width)
+    hexagons[Position(2, 3, -5)].piece_on_hex = Knight(colour=PlayerColour.WHITE,
+                                                     position=Position(2, 3, -5),
+                                                     hex_height=hex_height,
+                                                     hex_width=hex_width)
+    hexagons[Position(-2, 5, -3)].piece_on_hex = Knight(colour=PlayerColour.WHITE,
+                                                      position=Position(-2, 5, -3),
                                                       hex_height=hex_height,
                                                       hex_width=hex_width)
     terminated = False
