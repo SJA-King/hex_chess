@@ -77,14 +77,12 @@ class Board:
     def place_black_starting_pieces(self):
         self.place_black_pawns()
 
-        self.place_black_piece_on_hex(position=Position(1, -5, 4), piece=King)
-
-        self.place_black_piece_on_hex(position=Position(2, -5, 3), piece=Knight)
-        self.place_black_piece_on_hex(position=Position(-2, -3, 5), piece=Knight)
-
         for i_rs in range(3, 6):
             self.place_black_piece_on_hex(position=Position(0, -i_rs, i_rs), piece=Bishop)
 
+        self.place_black_piece_on_hex(position=Position(1, -5, 4), piece=King)
+        self.place_black_piece_on_hex(position=Position(2, -5, 3), piece=Knight)
+        self.place_black_piece_on_hex(position=Position(-2, -3, 5), piece=Knight)
         self.place_black_piece_on_hex(position=Position(-1, -4, 5), piece=Queen)
         self.place_black_piece_on_hex(position=Position(3, -5, 2), piece=Rook)
         self.place_black_piece_on_hex(position=Position(-3, -2, 5), piece=Rook)
@@ -100,14 +98,12 @@ class Board:
     def place_white_starting_pieces(self):
         self.place_white_pawns()
 
-        self.place_white_piece_on_hex(position=Position(1, 4, -5), piece=King)
-
-        self.place_white_piece_on_hex(position=Position(2, 3, -5), piece=Knight)
-        self.place_white_piece_on_hex(position=Position(-2, 5, -3), piece=Knight)
-
         for i_rs in range(3, 6):
             self.place_white_piece_on_hex(position=Position(0, i_rs, -i_rs), piece=Bishop)
 
+        self.place_white_piece_on_hex(position=Position(1, 4, -5), piece=King)
+        self.place_white_piece_on_hex(position=Position(2, 3, -5), piece=Knight)
+        self.place_white_piece_on_hex(position=Position(-2, 5, -3), piece=Knight)
         self.place_white_piece_on_hex(position=Position(-1, 5, -4), piece=Queen)
         self.place_white_piece_on_hex(position=Position(3,2,-5), piece=Rook)
         self.place_white_piece_on_hex(position=Position(-3,5,-2), piece=Rook)
