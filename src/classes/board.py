@@ -6,47 +6,43 @@ from src.classes.hexes import HexTile
 from src.classes.position import Position
 
 
-def create_hexagon(colour, centre, radius: int = 50) -> HexTile:
-    """Creates a hexagon tile at the specified position"""
-    return HexTile(colour=colour, centre_xy=centre, radius=radius)
+class Board:
 
+    def __init__(self, middle_column_length: int = 11,
+                 screen_width: int = 0,
+                 screen_height: int = 0):
+        self.mid_col_length = middle_column_length
+        if screen_height == 0 or screen_width == 0:
+            raise Exception(f"Screen Size is Non-existent")
+        self.middle_x = screen_width / 2
+        self.middle_y = screen_height / 2
+        self.radius_of_hex = math.floor(int((screen_height / self.mid_col_length) / 2))
+        self.positions_to_hextiles: dict = {}
 
-def make_hex_board(screen_width: int = 0, screen_height: int = 0) -> dict[Position, HexTile]:
-    length_of_middle_column = 11
+    def create_hexagon(self, colour, position: Position) -> HexTile:
+        """Creates a hexagon tile at the specified position"""
+        return HexTile(colour, middle_hex_xy=(self.middle_x, self.middle_y), position=position, radius=self.radius_of_hex)
 
-    radius_of_hex = math.floor(int((screen_height / length_of_middle_column) / 2))
+    def fill_board_with_hextiles(self) -> None:
+        colour = HexColours.RED
+        centre_position = Position(0, 0, 0)
+        self.positions_to_hextiles[centre_position] = self.create_hexagon(colour, centre_position)
 
-    middle_x = screen_width / 2
-    middle_y = screen_height / 2
+        for _ in range(5):
+            new_positions = self.positions_to_hextiles.copy()
+            for hex_position, the_hex in self.positions_to_hextiles.items():
+                for i_pos in Position(0, -1, 1), Position(1, 0, -1), Position(-1, 1, 0):
+                    new_hex_position = the_hex.position + i_pos
+                    if new_hex_position not in self.positions_to_hextiles:
+                        new_positions[new_hex_position] = self.create_hexagon(next(the_hex.colour), new_hex_position)
 
-    positions_to_hextiles = {}
+                for i_pos in Position(0, 1, -1), Position(1, -1, 0), Position(-1, 0, 1):
+                    new_hex_position = the_hex.position + i_pos
+                    if new_hex_position not in self.positions_to_hextiles:
+                        new_positions[new_hex_position] = self.create_hexagon(next(next(the_hex.colour)), new_hex_position)
 
-    starting_colour = HexColours.RED
-    colour = starting_colour
-    centre_position = Position(0, 0, 0)
-    positions_to_hextiles[centre_position] = HexTile(colour,
-                                                     middle_hex_xy=(middle_x, middle_y),
-                                                     position=centre_position,
-                                                     radius=radius_of_hex)
-    for _ in range(5):
-        new_positions = positions_to_hextiles.copy()
-        for hex_position, the_hex in positions_to_hextiles.items():
-            for i_pos in Position(0, -1, 1), Position(1, 0, -1), Position(-1, 1, 0):
-                new_hex_position = the_hex.position + i_pos
-                if new_hex_position not in positions_to_hextiles:
-                    new_positions[new_hex_position] = HexTile(next(the_hex.colour),
-                                                                      middle_hex_xy=(middle_x, middle_y),
-                                                                      position=new_hex_position,
-                                                                      radius=radius_of_hex)
+            self.positions_to_hextiles = new_positions.copy()
 
-            for i_pos in Position(0, 1, -1), Position(1, -1, 0), Position(-1, 0, 1):
-                new_hex_position = the_hex.position + i_pos
-                if new_hex_position not in positions_to_hextiles:
-                    new_positions[new_hex_position] = HexTile(next(next(the_hex.colour)),
-                                                                      middle_hex_xy=(middle_x, middle_y),
-                                                                      position=new_hex_position,
-                                                                      radius=radius_of_hex)
-
-        positions_to_hextiles = new_positions.copy()
-
-    return positions_to_hextiles
+    def get_hex_from_position(self, position: Position):
+        # return
+        pass

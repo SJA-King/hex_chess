@@ -1,6 +1,6 @@
 import pygame
 
-from src.classes.board import make_hex_board
+from src.classes.board import Board
 from src.classes.hexes import HexTile
 from src.classes.pieces.pawn import Pawn
 from src.classes.pieces.bishop import Bishop
@@ -76,7 +76,10 @@ def main():
     screen_height = 800
     screen = pygame.display.set_mode((screen_width, screen_height))
     clock = pygame.time.Clock()
-    hexagons = make_hex_board(screen_width=screen_width, screen_height=screen_height)
+    the_board = Board(middle_column_length=11, screen_width=screen_width, screen_height=screen_height)
+    the_board.fill_board_with_hextiles()
+    # hexagons = make_hex_board(screen_width=screen_width, screen_height=screen_height)
+    hexagons = the_board.positions_to_hextiles
     hex_height = int(2*hexagons[Position(0,-1,1)].little_r)
     hex_width = int(2*hexagons[Position(0,-1,1)].radius)
     hexagons[Position(0,-1,1)].piece_on_hex = Pawn(colour=PlayerColour.BLACK,
