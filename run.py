@@ -87,17 +87,7 @@ def main():
     #                                                position=Position(0,-1,1),
     #                                                hex_height=hex_height,
     #                                                hex_width=hex_width)
-    the_board.place_piece_on_hex(position=Position(0,-1,1), piece=Pawn, colour=PlayerColour.BLACK)
-    # add black pawns
-    for i_q in range(1, 5):
-        hexagons[Position(-i_q, -1, 1+i_q)].piece_on_hex = Pawn(colour=PlayerColour.BLACK,
-                                                         position=Position(i_q, -1, 1+i_q),
-                                                         hex_height=the_board.hex_height,
-                                                         hex_width=the_board.hex_width)
-        hexagons[Position(i_q, -1-i_q, 1)].piece_on_hex = Pawn(colour=PlayerColour.BLACK,
-                                                         position=Position(i_q, -1-i_q, 1),
-                                                         hex_height=the_board.hex_height,
-                                                         hex_width=the_board.hex_width)
+    the_board.place_black_starting_pieces()
     # Add white pawns
     hexagons[Position(0,1,-1)].piece_on_hex = Pawn(colour=PlayerColour.WHITE,
                                                    position=Position(0,1,-1),

@@ -1,10 +1,15 @@
 import math
 from typing import List, Union
 
-from src.classes.constants import HexColours
 from src.classes.hexes import HexTile
+from src.classes.pieces.pawn import Pawn
+from src.classes.pieces.bishop import Bishop
+from src.classes.pieces.king import King
+from src.classes.pieces.queen import Queen
+from src.classes.pieces.rook import Rook
+from src.classes.pieces.knight import Knight
+from src.classes.constants import HexColours, PlayerColour
 from src.classes.position import Position
-from src.classes.piece import Piece
 
 
 class Board:
@@ -59,7 +64,15 @@ class Board:
     def place_piece_on_hex(self, position: Position, piece, colour) -> None:
         self.positions_to_hextiles[position].piece_on_hex = piece(colour=colour, position=position, hex_height=self.hex_height, hex_width=self.hex_width)
 
-        # Pawn(colour=PlayerColour.BLACK,
-        #      position=Position(0, -1, 1),
-        #      hex_height=hex_height,
-        #      hex_width=hex_width)
+    def place_black_starting_pieces(self):
+        self.place_black_pawns()
+
+    def place_black_pawns(self):
+        self.place_piece_on_hex(position=Position(0, -1, 1), piece=Pawn, colour=PlayerColour.BLACK)
+        for i_q in range(1, 5):
+            a_position = Position(-i_q, -1, 1 + i_q)
+            self.place_piece_on_hex(position=a_position, piece=Pawn, colour=PlayerColour.BLACK)
+            a_position = Position(i_q, -1 - i_q, 1)
+            self.place_piece_on_hex(position=a_position, piece=Pawn, colour=PlayerColour.BLACK)
+
+
