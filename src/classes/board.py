@@ -68,28 +68,46 @@ class Board:
     def place_piece_on_hex(self, position: Position, piece, colour) -> None:
         self.positions_to_hextiles[position].piece_on_hex = piece(colour=colour, position=position, hex_height=self.hex_height, hex_width=self.hex_width)
 
+    def place_white_piece_on_hex(self, position: Position, piece) -> None:
+        self.place_piece_on_hex(position=position, piece=piece, colour=PlayerColour.WHITE)
+
+    def place_black_piece_on_hex(self, position: Position, piece) -> None:
+        self.place_piece_on_hex(position=position, piece=piece, colour=PlayerColour.BLACK)
+
     def place_black_starting_pieces(self):
         self.place_black_pawns()
-        # Place King
-        self.place_piece_on_hex(position=Position(1, -5, 4), piece=King, colour=PlayerColour.BLACK)
+
+        self.place_black_piece_on_hex(position=Position(1, -5, 4), piece=King)
+
+        self.place_black_piece_on_hex(position=Position(2, -5, 3), piece=Knight)
+        self.place_black_piece_on_hex(position=Position(-2, -3, 5), piece=Knight)
+
+        for i_rs in range(3, 6):
+            self.place_black_piece_on_hex(position=Position(0, -i_rs, i_rs), piece=Bishop)
 
     def place_black_pawns(self):
-        self.place_piece_on_hex(position=Position(0, -1, 1), piece=Pawn, colour=PlayerColour.BLACK)
+        self.place_black_piece_on_hex(position=Position(0, -1, 1), piece=Pawn)
         for i_q in range(1, 5):
             a_position = Position(-i_q, -1, 1 + i_q)
-            self.place_piece_on_hex(position=a_position, piece=Pawn, colour=PlayerColour.BLACK)
+            self.place_black_piece_on_hex(position=a_position, piece=Pawn)
             a_position = Position(i_q, -1 - i_q, 1)
-            self.place_piece_on_hex(position=a_position, piece=Pawn, colour=PlayerColour.BLACK)
+            self.place_black_piece_on_hex(position=a_position, piece=Pawn)
 
     def place_white_starting_pieces(self):
         self.place_white_pawns()
-        # Place King
-        self.place_piece_on_hex(position=Position(1, 4, -5), piece=King, colour=PlayerColour.WHITE)
+
+        self.place_white_piece_on_hex(position=Position(1, 4, -5), piece=King)
+
+        self.place_white_piece_on_hex(position=Position(2, 3, -5), piece=Knight)
+        self.place_white_piece_on_hex(position=Position(-2, 5, -3), piece=Knight)
+
+        for i_rs in range(3, 6):
+            self.place_white_piece_on_hex(position=Position(0, i_rs, -i_rs), piece=Bishop)
 
     def place_white_pawns(self):
-        self.place_piece_on_hex(position=Position(0, 1, -1), piece=Pawn, colour=PlayerColour.WHITE)
+        self.place_white_piece_on_hex(position=Position(0, 1, -1), piece=Pawn)
         for i_q in range(1, 5):
             a_position = Position(i_q, 1, -1 - i_q)
-            self.place_piece_on_hex(position=a_position, piece=Pawn, colour=PlayerColour.WHITE)
+            self.place_white_piece_on_hex(position=a_position, piece=Pawn)
             a_position = Position(-i_q, 1 + i_q, -1)
-            self.place_piece_on_hex(position=a_position, piece=Pawn, colour=PlayerColour.WHITE)
+            self.place_white_piece_on_hex(position=a_position, piece=Pawn)
