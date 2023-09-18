@@ -80,94 +80,96 @@ def main():
     the_board.fill_board_with_hextiles()
     # hexagons = make_hex_board(screen_width=screen_width, screen_height=screen_height)
     hexagons = the_board.positions_to_hextiles
-    hex_height = int(2*hexagons[Position(0,-1,1)].little_r)
-    hex_width = int(2*hexagons[Position(0,-1,1)].radius)
-    hexagons[Position(0,-1,1)].piece_on_hex = Pawn(colour=PlayerColour.BLACK,
-                                                   position=Position(0,-1,1),
-                                                   hex_height=hex_height,
-                                                   hex_width=hex_width)
+    the_board.cache_hex_dimensions()
+    # hex_height = int(2*hexagons[Position(0,-1,1)].little_r)
+    # hex_width = int(2*hexagons[Position(0,-1,1)].radius)
+    # hexagons[Position(0,-1,1)].piece_on_hex = Pawn(colour=PlayerColour.BLACK,
+    #                                                position=Position(0,-1,1),
+    #                                                hex_height=hex_height,
+    #                                                hex_width=hex_width)
+    the_board.place_piece_on_hex(position=Position(0,-1,1), piece=Pawn, colour=PlayerColour.BLACK)
     # add black pawns
     for i_q in range(1, 5):
         hexagons[Position(-i_q, -1, 1+i_q)].piece_on_hex = Pawn(colour=PlayerColour.BLACK,
                                                          position=Position(i_q, -1, 1+i_q),
-                                                         hex_height=hex_height,
-                                                         hex_width=hex_width)
+                                                         hex_height=the_board.hex_height,
+                                                         hex_width=the_board.hex_width)
         hexagons[Position(i_q, -1-i_q, 1)].piece_on_hex = Pawn(colour=PlayerColour.BLACK,
                                                          position=Position(i_q, -1-i_q, 1),
-                                                         hex_height=hex_height,
-                                                         hex_width=hex_width)
+                                                         hex_height=the_board.hex_height,
+                                                         hex_width=the_board.hex_width)
     # Add white pawns
     hexagons[Position(0,1,-1)].piece_on_hex = Pawn(colour=PlayerColour.WHITE,
                                                    position=Position(0,1,-1),
-                                                   hex_height=hex_height,
-                                                   hex_width=hex_width)
+                                                   hex_height=the_board.hex_height,
+                                                   hex_width=the_board.hex_width)
     for i_q in range(1, 5):
         hexagons[Position(i_q, 1, -1-i_q)].piece_on_hex = Pawn(colour=PlayerColour.WHITE,
                                                          position=Position(i_q, 1, -1-i_q),
-                                                         hex_height=hex_height,
-                                                         hex_width=hex_width)
+                                                         hex_height=the_board.hex_height,
+                                                         hex_width=the_board.hex_width)
         hexagons[Position(-i_q, 1+i_q, -1)].piece_on_hex = Pawn(colour=PlayerColour.WHITE,
                                                          position=Position(-i_q, 1+i_q, -1),
-                                                         hex_height=hex_height,
-                                                         hex_width=hex_width)
+                                                         hex_height=the_board.hex_height,
+                                                         hex_width=the_board.hex_width)
     for i_rs in range(3, 6):
         hexagons[Position(0, -i_rs, i_rs)].piece_on_hex = Bishop(colour=PlayerColour.BLACK,
                                                          position=Position(0, -i_rs, i_rs),
-                                                         hex_height=hex_height,
-                                                         hex_width=hex_width)
+                                                         hex_height=the_board.hex_height,
+                                                         hex_width=the_board.hex_width)
     # for i_q in range(1, 5):
         hexagons[Position(0, i_rs, -i_rs)].piece_on_hex = Bishop(colour=PlayerColour.WHITE,
                                                          position=Position(0, i_rs, -i_rs),
-                                                         hex_height=hex_height,
-                                                         hex_width=hex_width)
+                                                         hex_height=the_board.hex_height,
+                                                         hex_width=the_board.hex_width)
     hexagons[Position(1, -5, 4)].piece_on_hex = King(colour=PlayerColour.BLACK,
                                                              position=Position(1, -5, 4),
-                                                             hex_height=hex_height,
-                                                             hex_width=hex_width)
+                                                             hex_height=the_board.hex_height,
+                                                             hex_width=the_board.hex_width)
     hexagons[Position(1, 4, -5)].piece_on_hex = King(colour=PlayerColour.WHITE,
                                                              position=Position(1, 4, -5),
-                                                             hex_height=hex_height,
-                                                             hex_width=hex_width)
+                                                             hex_height=the_board.hex_height,
+                                                             hex_width=the_board.hex_width)
     hexagons[Position(-1, -4, 5)].piece_on_hex = Queen(colour=PlayerColour.BLACK,
                                                      position=Position(-1, -4, 5),
-                                                     hex_height=hex_height,
-                                                     hex_width=hex_width)
+                                                     hex_height=the_board.hex_height,
+                                                     hex_width=the_board.hex_width)
     hexagons[Position(-1, 5, -4)].piece_on_hex = Queen(colour=PlayerColour.WHITE,
                                                      position=Position(-1, 5, -4),
-                                                     hex_height=hex_height,
-                                                     hex_width=hex_width)
+                                                     hex_height=the_board.hex_height,
+                                                     hex_width=the_board.hex_width)
     hexagons[Position(3,-5,2)].piece_on_hex = Rook(colour=PlayerColour.BLACK,
                                                        position=Position(3,-5,2),
-                                                       hex_height=hex_height,
-                                                       hex_width=hex_width)
+                                                       hex_height=the_board.hex_height,
+                                                       hex_width=the_board.hex_width)
     hexagons[Position(-3,-2,5)].piece_on_hex = Rook(colour=PlayerColour.BLACK,
                                                       position=Position(-3,-2,5),
-                                                      hex_height=hex_height,
-                                                      hex_width=hex_width)
+                                                      hex_height=the_board.hex_height,
+                                                      hex_width=the_board.hex_width)
     hexagons[Position(3,2,-5)].piece_on_hex = Rook(colour=PlayerColour.WHITE,
                                                        position=Position(3,2,-5),
-                                                       hex_height=hex_height,
-                                                       hex_width=hex_width)
+                                                       hex_height=the_board.hex_height,
+                                                       hex_width=the_board.hex_width)
     hexagons[Position(-3,5,-2)].piece_on_hex = Rook(colour=PlayerColour.WHITE,
                                                       position=Position(-3,5,-2),
-                                                      hex_height=hex_height,
-                                                      hex_width=hex_width)
+                                                      hex_height=the_board.hex_height,
+                                                      hex_width=the_board.hex_width)
     hexagons[Position(2, -5, 3)].piece_on_hex = Knight(colour=PlayerColour.BLACK,
                                                      position=Position(2, -5, 3),
-                                                     hex_height=hex_height,
-                                                     hex_width=hex_width)
+                                                     hex_height=the_board.hex_height,
+                                                     hex_width=the_board.hex_width)
     hexagons[Position(-2, -3, 5)].piece_on_hex = Knight(colour=PlayerColour.BLACK,
                                                       position=Position(-2, -3, 5),
-                                                      hex_height=hex_height,
-                                                      hex_width=hex_width)
+                                                      hex_height=the_board.hex_height,
+                                                      hex_width=the_board.hex_width)
     hexagons[Position(2, 3, -5)].piece_on_hex = Knight(colour=PlayerColour.WHITE,
                                                      position=Position(2, 3, -5),
-                                                     hex_height=hex_height,
-                                                     hex_width=hex_width)
+                                                     hex_height=the_board.hex_height,
+                                                     hex_width=the_board.hex_width)
     hexagons[Position(-2, 5, -3)].piece_on_hex = Knight(colour=PlayerColour.WHITE,
                                                       position=Position(-2, 5, -3),
-                                                      hex_height=hex_height,
-                                                      hex_width=hex_width)
+                                                      hex_height=the_board.hex_height,
+                                                      hex_width=the_board.hex_width)
     terminated = False
     while not terminated:
         for event in pygame.event.get():
