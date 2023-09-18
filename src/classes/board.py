@@ -75,4 +75,14 @@ class Board:
             a_position = Position(i_q, -1 - i_q, 1)
             self.place_piece_on_hex(position=a_position, piece=Pawn, colour=PlayerColour.BLACK)
 
+    def place_white_starting_pieces(self):
+        self.place_white_pawns()
+
+    def place_white_pawns(self):
+        self.place_piece_on_hex(position=Position(0, 1, -1), piece=Pawn, colour=PlayerColour.WHITE)
+        for i_q in range(1, 5):
+            a_position = Position(i_q, 1, -1 - i_q)
+            self.place_piece_on_hex(position=a_position, piece=Pawn, colour=PlayerColour.WHITE)
+            a_position = Position(-i_q, 1 + i_q, -1)
+            self.place_piece_on_hex(position=a_position, piece=Pawn, colour=PlayerColour.WHITE)
 

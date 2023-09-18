@@ -88,20 +88,8 @@ def main():
     #                                                hex_height=hex_height,
     #                                                hex_width=hex_width)
     the_board.place_black_starting_pieces()
-    # Add white pawns
-    hexagons[Position(0,1,-1)].piece_on_hex = Pawn(colour=PlayerColour.WHITE,
-                                                   position=Position(0,1,-1),
-                                                   hex_height=the_board.hex_height,
-                                                   hex_width=the_board.hex_width)
-    for i_q in range(1, 5):
-        hexagons[Position(i_q, 1, -1-i_q)].piece_on_hex = Pawn(colour=PlayerColour.WHITE,
-                                                         position=Position(i_q, 1, -1-i_q),
-                                                         hex_height=the_board.hex_height,
-                                                         hex_width=the_board.hex_width)
-        hexagons[Position(-i_q, 1+i_q, -1)].piece_on_hex = Pawn(colour=PlayerColour.WHITE,
-                                                         position=Position(-i_q, 1+i_q, -1),
-                                                         hex_height=the_board.hex_height,
-                                                         hex_width=the_board.hex_width)
+    the_board.place_white_starting_pieces()
+
     for i_rs in range(3, 6):
         hexagons[Position(0, -i_rs, i_rs)].piece_on_hex = Bishop(colour=PlayerColour.BLACK,
                                                          position=Position(0, -i_rs, i_rs),
