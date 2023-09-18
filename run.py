@@ -2,14 +2,6 @@ import pygame
 
 from src.classes.board import Board
 from src.classes.hexes import HexTile
-from src.classes.pieces.pawn import Pawn
-from src.classes.pieces.bishop import Bishop
-from src.classes.pieces.king import King
-from src.classes.pieces.queen import Queen
-from src.classes.pieces.rook import Rook
-from src.classes.pieces.knight import Knight
-from src.classes.constants import HexColours, PlayerColour
-from src.classes.position import Position
 
 
 def render(screen, hexagons: list[HexTile]):
@@ -76,41 +68,13 @@ def main():
     screen_height = 800
     screen = pygame.display.set_mode((screen_width, screen_height))
     clock = pygame.time.Clock()
+
     the_board = Board(middle_column_length=11, screen_width=screen_width, screen_height=screen_height)
+
     the_board.fill_board_with_hextiles()
-
-    hexagons = the_board.positions_to_hextiles
     the_board.cache_hex_dimensions()
-
     the_board.place_black_starting_pieces()
     the_board.place_white_starting_pieces()
-
-
-
-    hexagons[Position(-1, -4, 5)].piece_on_hex = Queen(colour=PlayerColour.BLACK,
-                                                     position=Position(-1, -4, 5),
-                                                     hex_height=the_board.hex_height,
-                                                     hex_width=the_board.hex_width)
-    hexagons[Position(-1, 5, -4)].piece_on_hex = Queen(colour=PlayerColour.WHITE,
-                                                     position=Position(-1, 5, -4),
-                                                     hex_height=the_board.hex_height,
-                                                     hex_width=the_board.hex_width)
-    hexagons[Position(3,-5,2)].piece_on_hex = Rook(colour=PlayerColour.BLACK,
-                                                       position=Position(3,-5,2),
-                                                       hex_height=the_board.hex_height,
-                                                       hex_width=the_board.hex_width)
-    hexagons[Position(-3,-2,5)].piece_on_hex = Rook(colour=PlayerColour.BLACK,
-                                                      position=Position(-3,-2,5),
-                                                      hex_height=the_board.hex_height,
-                                                      hex_width=the_board.hex_width)
-    hexagons[Position(3,2,-5)].piece_on_hex = Rook(colour=PlayerColour.WHITE,
-                                                       position=Position(3,2,-5),
-                                                       hex_height=the_board.hex_height,
-                                                       hex_width=the_board.hex_width)
-    hexagons[Position(-3,5,-2)].piece_on_hex = Rook(colour=PlayerColour.WHITE,
-                                                      position=Position(-3,5,-2),
-                                                      hex_height=the_board.hex_height,
-                                                      hex_width=the_board.hex_width)
 
     terminated = False
     while not terminated:
