@@ -78,15 +78,10 @@ def main():
     clock = pygame.time.Clock()
     the_board = Board(middle_column_length=11, screen_width=screen_width, screen_height=screen_height)
     the_board.fill_board_with_hextiles()
-    # hexagons = make_hex_board(screen_width=screen_width, screen_height=screen_height)
+
     hexagons = the_board.positions_to_hextiles
     the_board.cache_hex_dimensions()
-    # hex_height = int(2*hexagons[Position(0,-1,1)].little_r)
-    # hex_width = int(2*hexagons[Position(0,-1,1)].radius)
-    # hexagons[Position(0,-1,1)].piece_on_hex = Pawn(colour=PlayerColour.BLACK,
-    #                                                position=Position(0,-1,1),
-    #                                                hex_height=hex_height,
-    #                                                hex_width=hex_width)
+
     the_board.place_black_starting_pieces()
     the_board.place_white_starting_pieces()
 
@@ -100,14 +95,7 @@ def main():
                                                          position=Position(0, i_rs, -i_rs),
                                                          hex_height=the_board.hex_height,
                                                          hex_width=the_board.hex_width)
-    hexagons[Position(1, -5, 4)].piece_on_hex = King(colour=PlayerColour.BLACK,
-                                                             position=Position(1, -5, 4),
-                                                             hex_height=the_board.hex_height,
-                                                             hex_width=the_board.hex_width)
-    hexagons[Position(1, 4, -5)].piece_on_hex = King(colour=PlayerColour.WHITE,
-                                                             position=Position(1, 4, -5),
-                                                             hex_height=the_board.hex_height,
-                                                             hex_width=the_board.hex_width)
+
     hexagons[Position(-1, -4, 5)].piece_on_hex = Queen(colour=PlayerColour.BLACK,
                                                      position=Position(-1, -4, 5),
                                                      hex_height=the_board.hex_height,
@@ -154,7 +142,7 @@ def main():
             if event.type == pygame.QUIT:
                 terminated = True
 
-        render(screen, list(hexagons.values()))
+        render(screen, the_board.hexagons)
         clock.tick(50)
     pygame.display.quit()
 

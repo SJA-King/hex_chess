@@ -51,6 +51,10 @@ class Board:
 
             self.positions_to_hextiles = new_positions.copy()
 
+    @property
+    def hexagons(self):
+        return list(self.positions_to_hextiles.values())
+
     def get_hex_from_position(self, position: Position) -> Union[HexTile, None]:
         if position not in self.positions_to_hextiles:
             # TODO add warning here
@@ -66,6 +70,8 @@ class Board:
 
     def place_black_starting_pieces(self):
         self.place_black_pawns()
+        # Place King
+        self.place_piece_on_hex(position=Position(1, -5, 4), piece=King, colour=PlayerColour.BLACK)
 
     def place_black_pawns(self):
         self.place_piece_on_hex(position=Position(0, -1, 1), piece=Pawn, colour=PlayerColour.BLACK)
@@ -77,6 +83,8 @@ class Board:
 
     def place_white_starting_pieces(self):
         self.place_white_pawns()
+        # Place King
+        self.place_piece_on_hex(position=Position(1, 4, -5), piece=King, colour=PlayerColour.WHITE)
 
     def place_white_pawns(self):
         self.place_piece_on_hex(position=Position(0, 1, -1), piece=Pawn, colour=PlayerColour.WHITE)
@@ -85,4 +93,3 @@ class Board:
             self.place_piece_on_hex(position=a_position, piece=Pawn, colour=PlayerColour.WHITE)
             a_position = Position(-i_q, 1 + i_q, -1)
             self.place_piece_on_hex(position=a_position, piece=Pawn, colour=PlayerColour.WHITE)
-
