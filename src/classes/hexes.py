@@ -22,6 +22,12 @@ class HexTile:
     def __post_init__(self):
         self.vertices = self.compute_vertices()
 
+    def __str__(self):
+        return f"Hex-{self.colour}, Position({self.position})"
+
+    def __repr__(self):
+        return str(self)
+
     @property
     def little_r(self) -> float:
         """

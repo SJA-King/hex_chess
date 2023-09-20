@@ -72,15 +72,21 @@ def main():
     the_board = Board(middle_column_length=11, screen_width=screen_width, screen_height=screen_height)
 
     the_board.fill_board_with_hextiles()
-    the_board.cache_hex_dimensions()
     the_board.place_black_starting_pieces()
     the_board.place_white_starting_pieces()
 
     terminated = False
     while not terminated:
+        mouse_x, mouse_y = pygame.mouse.get_pos()
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 terminated = True
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                # If the mouse is clicked
+                if event.button == 1:
+                    a_hex = the_board.handle_click(mouse_x, mouse_y)
+                    print(a_hex)
 
         render(screen, the_board.hexagons)
         clock.tick(50)
