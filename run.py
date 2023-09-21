@@ -1,3 +1,5 @@
+import sys
+
 import pygame
 
 from src.classes.board import Board
@@ -74,6 +76,10 @@ def main():
     the_board.fill_board_with_hextiles()
     the_board.place_black_starting_pieces()
     the_board.place_white_starting_pieces()
+
+    # a_hex = the_board.handle_click(456, 678)
+
+    # sys.exit(0)
 
     terminated = False
     while not terminated:

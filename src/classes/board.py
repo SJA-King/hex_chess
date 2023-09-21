@@ -24,14 +24,14 @@ class Board:
         self.middle_y = screen_height / 2
         self.radius_of_hex = math.floor(int((screen_height / self.mid_col_length) / 2))
         self.positions_to_hextiles: dict[Position, HexTile] = {}
-        self.positions_to_xy: dict[Position, (float, float)] = {}
+        self.xy_to_positions: dict[(float, float), Position] = {}
         self.hex_height = 0
         self.hex_width = 0
 
     def create_hexagon(self, colour, position: Position) -> HexTile:
         """Creates a hexagon tile at the specified position"""
         new_hex_tile = HexTile(colour, middle_hex_xy=(self.middle_x, self.middle_y), position=position, radius=self.radius_of_hex)
-        self.positions_to_xy[position] = (new_hex_tile.x, new_hex_tile.y)
+        self.xy_to_positions[(new_hex_tile.x, new_hex_tile.y)] = position
         return new_hex_tile
 
     def fill_board_with_hextiles(self) -> None:
@@ -67,20 +67,24 @@ class Board:
         return self.positions_to_hextiles[position]
 
     def get_hex_from_xy(self, x: int, y: int) -> HexTile:
-        closest_position = Position(0, 0, 0)
         x_difference = None
         y_difference = None
-        for position, xy in self.positions_to_xy.items():
-            if x_difference is None and y_difference is None:
-                x_difference = abs(xy[0] - x)
-                y_difference = abs(xy[1] - y)
-                closest_position = position
-            else:
-                if abs(xy[0] - x) < x_difference and abs(xy[1] - y) < y_difference:
-                    x_difference = abs(xy[0] - x)
-                    y_difference = abs(xy[1] - y)
-                    closest_position = position
+        closest_x = None
+        closest_y = None
+        for i_hex in self.positions_to_hextiles.values():
+            if x_difference is None or x_difference > abs(i_hex.x - x):
+                x_difference = abs(i_hex.x - x)
+                closest_x = i_hex.x
 
+            if y_difference is None or y_difference > abs(i_hex.y - y):
+                y_difference = abs(i_hex.y - y)
+                closest_y = i_hex.y
+
+        if (closest_x, closest_y) in self.xy_to_positions:
+            closest_position = self.xy_to_positions[(closest_x, closest_y)]
+        else:
+            # TODO need to fix when we click too close to edge of Hex
+            return None
         return self.get_hex_from_position(closest_position)
 
     def place_piece_on_hex(self, position: Position, piece, colour) -> None:
@@ -135,7 +139,6 @@ class Board:
             self.place_white_piece_on_hex(position=a_position, piece=Pawn)
 
     def handle_click(self, mouse_x: int, mouse_y: int) -> HexTile:
-        mouse_x = (mouse_x // 10) * 10
-        mouse_y = (mouse_y // 10) * 10
+        print(mouse_x, mouse_y)
         clicked_hex = self.get_hex_from_xy(mouse_x, mouse_y)
         return clicked_hex
