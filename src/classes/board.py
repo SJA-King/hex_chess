@@ -2,6 +2,7 @@ import math
 from typing import List, Union
 
 from src.classes.hexes import HexTile
+from src.classes.piece import Piece
 from src.classes.pieces.pawn import Pawn
 from src.classes.pieces.bishop import Bishop
 from src.classes.pieces.king import King
@@ -27,6 +28,8 @@ class Board:
         self.xy_to_positions: dict[(float, float), Position] = {}
         self.hex_height = 0
         self.hex_width = 0
+        self.turn: PlayerColour = PlayerColour.WHITE
+        self.selected_piece: Union[Piece, None] = None
 
     def create_hexagon(self, colour, position: Position) -> HexTile:
         """Creates a hexagon tile at the specified position"""
@@ -138,7 +141,12 @@ class Board:
             a_position = Position(-i_q, 1 + i_q, -1)
             self.place_white_piece_on_hex(position=a_position, piece=Pawn)
 
-    def handle_click(self, mouse_x: int, mouse_y: int) -> HexTile:
-        print(mouse_x, mouse_y)
+    def handle_click(self, mouse_x: int, mouse_y: int):# -> HexTile:
+        # print(mouse_x, mouse_y)
         clicked_hex = self.get_hex_from_xy(mouse_x, mouse_y)
+        if self.selected_piece is None:
+            if clicked_hex.piece_on_hex is None:
+                return None
+            if clicked_hex.piece_on_hex.colour == self.turn:
+                self.selected_piece = clicked_hex.piece_on_hex
         return clicked_hex
