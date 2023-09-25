@@ -149,4 +149,9 @@ class Board:
                 return None
             if clicked_hex.piece_on_hex.colour == self.turn:
                 self.selected_piece = clicked_hex.piece_on_hex
+        elif self.selected_piece.move(self, clicked_hex):
+            self.turn = 'white' if self.turn == 'black' else 'black'
+        elif clicked_hex.piece_on_hex is not None:
+            if clicked_hex.piece_on_hex.colour == self.turn:
+                self.selected_piece = clicked_hex.piece_on_hex
         return clicked_hex
