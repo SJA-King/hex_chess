@@ -22,5 +22,10 @@ class King(Piece):
             Position(1, 0, -1),
         ]
 
-    def get_available_moves(self, the_board):
-        pass
+    def get_possible_moves(self, board):
+        possible_moves = []
+        return possible_moves
+
+    def get_legal_moves(self, board):
+        legal_moves = []
+        return legal_moves

@@ -4,8 +4,7 @@ from dataclasses import dataclass
 import pygame
 from abc import ABC, abstractmethod
 from src.classes.position import Position
-from src.classes.constants import PlayerColour,  PieceNames, images_path
-# from src.classes.hexes import HexTile
+from src.classes.constants import PlayerColour,  PieceNames, images_path, info
 
 
 @dataclass
@@ -46,18 +45,16 @@ class Piece(ABC):
         for i_hex in board.hexagons:
             i_hex.highlight = False
         if new_hex in self.get_legal_moves(board):
-            print(f"New Hex: {new_hex} is in legal moves")
+
             old_hex = board.get_hex_from_position(self.position)
+            info(f"Move from {old_hex}")
             self.position = new_hex.position
-
-
-            print(old_hex)
-            # print(self)
             new_hex.piece_on_hex = old_hex.piece_on_hex
             old_hex.piece_on_hex = None
-            print(new_hex)
+
             board.selected_piece = None  # todo could optimise this
             self.moved = True
+            info(f"Move to {new_hex}")
 
             return True
         else:

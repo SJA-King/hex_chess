@@ -76,10 +76,6 @@ def main():
     the_board.place_black_starting_pieces()
     the_board.place_white_starting_pieces()
 
-    # a_hex = the_board.handle_click(456, 678)
-
-    # sys.exit(0)
-
     terminated = False
     while not terminated:
         mouse_x, mouse_y = pygame.mouse.get_pos()
@@ -94,11 +90,6 @@ def main():
                     print(a_hex)
 
         render(screen, the_board)
-        # # render(screen, the_board.hexagons)
-        # the_board.render(screen)
-        # pygame.display.flip()
-        # clock.tick(50)
-    # pygame.display.quit()
 
 
 if __name__ == "__main__":

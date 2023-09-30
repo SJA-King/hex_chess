@@ -1,7 +1,4 @@
 from dataclasses import dataclass
-from pathlib import Path
-
-import pygame
 
 from src.classes.piece import Piece
 from src.classes.position import Position
@@ -30,7 +27,6 @@ class Pawn(Piece):
         else:
             print(f"Error - Pawn Colour not in {PlayerColour}")
 
-        # info(f"Moves are {moves}")
         return moves
 
     def get_possible_moves(self, board):
