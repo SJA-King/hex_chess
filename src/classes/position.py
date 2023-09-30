@@ -28,10 +28,10 @@ class Position:
         return self.q == other.q and self.r == other.r and self.s == other.s
 
     def __str__(self):
-        return repr(self)
+        return f"{self.q},{self.r},{self.s}"
 
     def __repr__(self):
-        return f"{self.q},{self.r},{self.s}"
+        return self.__str__()
 
     def __post_init__(self):
         if not self.q and self.q != 0:

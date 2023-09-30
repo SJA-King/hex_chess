@@ -6,13 +6,12 @@ from src.classes.board import Board
 from src.classes.hexes import HexTile
 
 
-def render(screen, hexagons: list[HexTile]):
+def render(screen, board: Board):#hexagons: list[HexTile]):
     """Renders hexagons on the screen"""
     screen.fill((0, 0, 0))
-    for hexagon in hexagons:
-        hexagon.render(screen)
+    board.render(screen)
+    pygame.display.update()
 
-    pygame.display.flip()
 
 
 def get_qrs_position(x: int = None, y: int = None):
@@ -94,9 +93,12 @@ def main():
                     a_hex = the_board.handle_click(mouse_x, mouse_y)
                     print(a_hex)
 
-        render(screen, the_board.hexagons)
-        clock.tick(50)
-    pygame.display.quit()
+        render(screen, the_board)
+        # # render(screen, the_board.hexagons)
+        # the_board.render(screen)
+        # pygame.display.flip()
+        # clock.tick(50)
+    # pygame.display.quit()
 
 
 if __name__ == "__main__":

@@ -4,7 +4,7 @@ from dataclasses import dataclass
 import math
 import pygame
 from typing import List, Tuple
-from src.classes.constants import HexColours
+from src.classes.constants import HexColours, info, warn, die
 from src.classes.piece import Piece
 from src.classes.position import Position
 
@@ -12,7 +12,7 @@ from src.classes.position import Position
 @dataclass
 class HexTile:
     colour: HexColours = None
-    centre_xy: Tuple[float, float] = None
+    # centre_xy: Tuple[float, float] = None
     middle_hex_xy: Tuple[float, float] = None
     position: Position = None
     radius: int = None
@@ -23,7 +23,7 @@ class HexTile:
         self.vertices = self.compute_vertices()
 
     def __str__(self):
-        return f"Hex-{self.colour}, Position({self.position})"
+        return f"Hex : {self.colour} : <{self.position}> : ({self.piece_on_hex})"
 
     def __repr__(self):
         return str(self)
@@ -70,12 +70,13 @@ class HexTile:
 
     def render(self, screen) -> None:
         """Renders the hexagon on the screen"""
+        colour = self.colour.rgb()
         if self.highlight:
-            pygame.draw.polygon(screen, self.colour.rgb_highlight(), self.vertices)
-        else:
-            pygame.draw.polygon(screen, self.colour.rgb(), self.vertices)
+            colour = self.colour.rgb_highlight()
+
+        pygame.draw.polygon(screen, colour, self.vertices)
 
         if self.piece_on_hex is not None:
             center_hex = self.piece_on_hex.img.get_rect()
-            center_hex.center = (self.x, self.y) # self.centre_xy
+            center_hex.center = (self.x, self.y)
             screen.blit(self.piece_on_hex.img, center_hex.topleft)
