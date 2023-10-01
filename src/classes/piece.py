@@ -34,17 +34,17 @@ class Piece(ABC):
         pass
 
     @abstractmethod
-    def get_possible_moves(self, board):
+    def possible_moves(self, board):
         pass
 
     @abstractmethod
-    def get_legal_moves(self, board):
+    def legal_moves(self, board):
         pass
 
     def move(self, board, new_hex):
         for i_hex in board.hexagons:
             i_hex.highlight = False
-        if new_hex in self.get_legal_moves(board):
+        if new_hex in self.legal_moves(board):
 
             old_hex = board.get_hex_from_position(self.position)
             info(f"Move from {old_hex}")
@@ -63,4 +63,4 @@ class Piece(ABC):
 
     def attacking_hexes(self, board):
         """ Return hex piece can 'attack' (True for all pieces but Pawn)"""
-        return self.get_legal_moves(board)
+        return self.legal_moves(board)

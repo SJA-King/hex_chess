@@ -10,15 +10,15 @@ images_path = src_path / "images"
 
 
 def info(msg: str):
-    print(f"{msg}", file=sys.stderr, flush=True)
+    print(f"INFO = {msg}", file=sys.stderr, flush=True)
 
 
 def warn(msg: str):
-    print(f"Warning: {msg}", file=sys.stderr, flush=True)
+    print(f"WARNING = {msg}", file=sys.stderr, flush=True)
 
 
 def die(msg: str):
-    print(f"Error: {msg}", file=sys.stderr, flush=True)
+    print(f"ERROR = {msg}", file=sys.stderr, flush=True)
     sys.exit(1)
 
 

@@ -29,7 +29,7 @@ class Pawn(Piece):
 
         return moves
 
-    def get_possible_moves(self, board):
+    def possible_moves(self, board):
         possible_moves = []
         for move in self.moves:
             new_position = self.position + move
@@ -39,11 +39,13 @@ class Pawn(Piece):
         info(f"Possible Moves are {possible_moves}")
         return possible_moves
 
-    def get_legal_moves(self, board):
+    def legal_moves(self, board):
         legal_moves = []
-        for a_hex in self.get_possible_moves(board):
+        for a_hex in self.possible_moves(board):
             if a_hex.piece_on_hex is None:
                 legal_moves.append(a_hex)
+            else:
+                break
 
         diagonal_moves = []
         if self.colour == PlayerColour.WHITE:
@@ -74,4 +76,4 @@ class Pawn(Piece):
 
     def attacking_hexes(self, board):
         """ Return the diagonal moves """
-        return [i for i in self.get_legal_moves(board) if i.position.q != self.position.q]
+        return [i for i in self.legal_moves(board) if i.position.q != self.position.q]

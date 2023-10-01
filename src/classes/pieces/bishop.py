@@ -24,10 +24,10 @@ class Bishop(Piece):
             Position(1, 1, -2),
         ]
 
-    def get_possible_moves(self, board):
+    def possible_moves(self, board):
         possible_moves = []
         return possible_moves
 
-    def get_legal_moves(self, board):
+    def legal_moves(self, board):
         legal_moves = []
         return legal_moves

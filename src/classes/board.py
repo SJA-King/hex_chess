@@ -163,7 +163,7 @@ class Board:
         """Renders hexagons on the screen"""
         if self.selected_piece is not None:
             self.get_hex_from_position(self.selected_piece.position).highlight = True
-            for a_hex in self.selected_piece.get_legal_moves(self):
+            for a_hex in self.selected_piece.legal_moves(self):
                 a_hex.highlight = True
         for hexagon in self.hexagons:
             hexagon.render(screen)

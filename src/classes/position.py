@@ -101,15 +101,4 @@ class Moves(Enum):
     QUEEN_DOWN_RIGHT = Step(Position(1, 1, -2), Pace.RUN)
     QUEEN_DOWN_LEFT = Step(Position(-1, 2, -1), Pace.RUN)
 
-    KNIGHT_UP_UP_LEFT = Step(Position(-1, -2, 3), Pace.WALK)
-    KNIGHT_UP_UP_RIGHT = Step(Position(1, -3, 2), Pace.WALK)
-    KNIGHT_RIGHT_UP_UP = Step(Position(2, -3, 1), Pace.WALK)
-    KNIGHT_RIGHT_UP_RIGHT = Step(Position(3, -2, -1), Pace.WALK)
-    KNIGHT_RIGHT_DOWN_RIGHT = Step(Position(3, -2, -2), Pace.WALK)
-    KNIGHT_RIGHT_DOWN_DOWN = Step(Position(2, 1, -3), Pace.WALK)
-    KNIGHT_DOWN_DOWN_RIGHT = Step(Position(1, 2, -3), Pace.WALK)
-    KNIGHT_DOWN_DOWN_LEFT = Step(Position(-1, -2, 3), Pace.WALK)
-    KNIGHT_LEFT_DOWN_DOWN = Step(Position(-2, 3, -1), Pace.WALK)
-    KNIGHT_LEFT_DOWN_LEFT = Step(Position(-3, 2, 1), Pace.WALK)
-    KNIGHT_LEFT_UP_LEFT = Step(Position(-3, 1, 2), Pace.WALK)
-    KNIGHT_LEFT_UP_UP = Step(Position(-2, -1, 3), Pace.WALK)
+
