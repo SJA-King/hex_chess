@@ -20,6 +20,13 @@ class King(Piece):
             Position(1, -1, 0),
             Position(0, 1, -1),
             Position(1, 0, -1),
+            # plus the bishop 'jumps'
+            Position(2, -1, -1),
+            Position(1, -2, 1),
+            Position(-1, -1, 2),
+            Position(-2, 1, 1),
+            Position(-1, 2, -1),
+            Position(1, 1, -2),
         ]
 
     def possible_moves(self, board):
