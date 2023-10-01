@@ -36,6 +36,8 @@ class Bishop(Piece):
                     if new_hex.piece_on_hex is None:
                         possible_moves.append(new_hex)
                     else:
+                        if new_hex.piece_on_hex.colour != self.colour:
+                            possible_moves.append(new_hex)
                         keep_going = False
                 else:
                     keep_going = False
