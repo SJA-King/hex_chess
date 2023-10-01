@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 from src.classes.piece import Piece
 from src.classes.position import Position
-from src.classes.constants import PieceNames
+from src.classes.constants import PieceNames, info
 
 
 @dataclass
@@ -24,8 +24,25 @@ class King(Piece):
 
     def possible_moves(self, board):
         possible_moves = []
+        for move in self.moves:
+            # print(move)
+            new_position = self.position + move
+            new_hex = board.get_hex_from_position(new_position)
+            if new_hex:
+                if new_hex.piece_on_hex:
+                    if new_hex.piece_on_hex.colour != self.colour:
+                        possible_moves.append(new_hex)
+                    else:
+                        # it's the same colour
+                        pass
+                else:
+                    possible_moves.append(new_hex)
+            else:
+                # there is no hex
+                pass
+        info(f"Possible Moves are {possible_moves}")
         return possible_moves
 
     def legal_moves(self, board):
-        legal_moves = []
+        legal_moves = self.possible_moves(board)
         return legal_moves
