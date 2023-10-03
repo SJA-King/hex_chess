@@ -68,10 +68,9 @@ def main():
     screen_width = 800
     screen_height = 800
     screen = pygame.display.set_mode((screen_width, screen_height))
-    clock = pygame.time.Clock()
 
     the_board = Board(middle_column_length=11, screen_width=screen_width, screen_height=screen_height)
-
+    the_board.make_first_hex()
     the_board.fill_board_with_hextiles()
     the_board.place_black_starting_pieces()
     the_board.place_white_starting_pieces()

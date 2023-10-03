@@ -18,9 +18,9 @@ class Bishop(Piece):
         return [
             Position(2, -1, -1),
             Position(1, -2, 1),
-            Position(-1,-1,2),
-            Position(-2,1,1),
-            Position(-1,2,-1),
+            Position(-1, -1, 2),
+            Position(-2, 1, 1),
+            Position(-1, 2, -1),
             Position(1, 1, -2),
         ]
 

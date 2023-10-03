@@ -17,9 +17,7 @@ from src.classes.position import Position
 
 class Board:
 
-    def __init__(self, middle_column_length: int = 11,
-                 screen_width: int = 0,
-                 screen_height: int = 0):
+    def __init__(self, middle_column_length: int = 11, screen_width: int = 0, screen_height: int = 0):
         self.mid_col_length = middle_column_length
         if screen_height == 0 or screen_width == 0:
             die("Screen Size is Non-existent")
@@ -32,21 +30,28 @@ class Board:
         self.hex_width = 0
         self.turn: PlayerColour = PlayerColour.WHITE
         self.selected_piece: Union[Piece, None] = None
+        self.set_hex_info = False
 
-    def create_hexagon(self, colour, position: Position) -> HexTile:
+    def create_hexagon(self, colour: HexColours, position: Position) -> HexTile:
         """Creates a hexagon tile at the specified position"""
-        new_hex_tile = HexTile(colour, middle_hex_xy=(self.middle_x, self.middle_y), position=position,
+        new_hex_tile = HexTile(colour,
+                               middle_hex_xy=(self.middle_x, self.middle_y),
+                               position=position,
                                radius=self.radius_of_hex)
         self.xy_to_positions[(new_hex_tile.x, new_hex_tile.y)] = position
         return new_hex_tile
 
-    def fill_board_with_hextiles(self) -> None:
-        colour = HexColours.RED
+    def make_first_hex(self):
+        if self.set_hex_info:
+            die("Trying to Set First Hex Again!")
         centre_position = Position(0, 0, 0)
-        self.positions_to_hextiles[centre_position] = self.create_hexagon(colour, centre_position)
-        self.hex_height = int(2 * self.positions_to_hextiles[centre_position].little_r)
-        self.hex_width = int(2 * self.positions_to_hextiles[centre_position].radius)
+        first_hex = self.create_hexagon(colour=HexColours.RED, position=centre_position)
+        self.positions_to_hextiles[centre_position] = first_hex
+        self.hex_height = int(2 * first_hex.little_r)
+        self.hex_width = int(2 * first_hex.radius)
+        self.set_hex_info = True
 
+    def fill_board_with_hextiles(self) -> None:
         for _ in range(5):
             new_positions = self.positions_to_hextiles.copy()
             for hex_position, the_hex in self.positions_to_hextiles.items():
@@ -94,9 +99,11 @@ class Board:
             return None
         return self.get_hex_from_position(closest_position)
 
-    def place_piece_on_hex(self, position: Position, piece: Type[Piece], colour: PlayerColour) -> None:
-        self.positions_to_hextiles[position].piece_on_hex = piece(colour=colour, position=position,
-                                                                  hex_height=self.hex_height, hex_width=self.hex_width)
+    def place_piece_on_hex(self, position: Position, piece, colour: PlayerColour) -> None:
+        self.positions_to_hextiles[position].piece_on_hex = piece(colour=colour,
+                                                                  position=position,
+                                                                  hex_height=self.hex_height,
+                                                                  hex_width=self.hex_width)
 
     def place_white_piece_on_hex(self, position: Position, piece: Type[Piece]) -> None:
         self.place_piece_on_hex(position=position, piece=piece, colour=PlayerColour.WHITE)
