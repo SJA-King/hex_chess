@@ -1,5 +1,4 @@
 from ..classes.position import Position
-from ..classes.hexes import HexTile, HexColours
 
 
 def test_add_sum():
