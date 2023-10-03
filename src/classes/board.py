@@ -5,12 +5,12 @@ import pygame.surface
 
 from src.classes.hexes import HexTile
 from src.classes.piece import Piece
-from src.classes.pieces.pawn import Pawn
-from src.classes.pieces.bishop import Bishop
-from src.classes.pieces.king import King
-from src.classes.pieces.queen import Queen
-from src.classes.pieces.rook import Rook
-from src.classes.pieces.knight import Knight
+from src.classes.pawn import Pawn
+from src.classes.bishop import Bishop
+from src.classes.king import King
+from src.classes.queen import Queen
+from src.classes.rook import Rook
+from src.classes.knight import Knight
 from src.classes.constants import HexColours, PlayerColour, info, warn, die
 from src.classes.position import Position
 
