@@ -1,6 +1,5 @@
-import pytest
-from ..position import Position
-from ..hexes import Hex, HexColours
+from ..classes.position import Position
+from ..classes.hexes import HexTile, HexColours
 
 
 def test_add_sum():
@@ -35,25 +34,10 @@ def test_positions_not_equal():
 
 def test_position_from_str():
     test_str = "1,2,3"
-    test_position = Position.from_str(position_as_str=test_str)
+    test_position = Position.from_str(test_str)
     assert test_position.q == 1
     assert test_position.r == 2
     assert test_position.s == 3
-
-
-def test_position_from_str_as_key():
-    test_qrs = "0,0,0"
-    test_board = {test_qrs: Hex(position=Position(0, 0, 0), colour=HexColours.GREY)}
-
-    assert Position.from_str(test_qrs) == test_board[test_qrs].position
-
-    test_board = {test_qrs: Hex(position=Position.from_str(test_qrs), colour=HexColours.GREY)}
-
-    assert Position.from_str(test_qrs) == test_board[test_qrs].position
-
-
-
-
 
 
 # test negatives

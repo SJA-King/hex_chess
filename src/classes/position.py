@@ -33,6 +33,12 @@ class Position:
     def __repr__(self):
         return self.__str__()
 
+    @classmethod
+    def from_str(cls, qrs_str: str, delimitor: str = ",") -> Position:
+        assert len(delimitor) == 1
+        q, r, s = qrs_str.split(delimitor)
+        return cls(q, r, s)
+
     def __post_init__(self):
         if not self.q and self.q != 0:
             raise Exception(f"Q NOT SET!")
