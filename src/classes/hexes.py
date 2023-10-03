@@ -4,7 +4,7 @@ from dataclasses import dataclass
 import math
 import pygame
 from typing import List, Tuple
-from src.classes.constants import HexColours, info, warn, die
+from src.classes.constants import HexColours
 from src.classes.piece import Piece
 from src.classes.position import Position
 
@@ -12,7 +12,6 @@ from src.classes.position import Position
 @dataclass
 class HexTile:
     colour: HexColours = None
-    # centre_xy: Tuple[float, float] = None
     middle_hex_xy: Tuple[float, float] = None
     position: Position = None
     radius: int = None

@@ -33,6 +33,8 @@ HexTiles have their own coordinate system of q, r, s - to which a HexTile AND a 
 - Maybe 80% of a HexTile is registered via a click (Game will return none if it cant find it)
 
 ## TODO
+- Re-use the 'step' once code across pawn, king, knight
+- Re-use the 'kick stepping' code across rook, bishop, queen
 - Add a check for 'in check'
 - Add a check if in checkmate, player wins
 - Add the ability for a Pawn to be Promoted

@@ -1,33 +1,14 @@
 from dataclasses import dataclass
 
-from src.classes.piece import Piece
-from src.classes.position import Position
+from src.classes.king import King
 from src.classes.constants import PieceNames, info
 
 
 @dataclass
-class Queen(Piece):
+class Queen(King):
     def __post_init__(self):
         self.name: PieceNames = PieceNames.Queen
         self.set_image()
-
-    @property
-    def moves(self):
-        return [
-            Position(0, -1, 1),
-            Position(-1, 0, 1),
-            Position(-1, 1, 0),
-            Position(1, -1, 0),
-            Position(0, 1, -1),
-            Position(1, 0, -1),
-            # plus the bishop 'jumps'
-            Position(2, -1, -1),
-            Position(1, -2, 1),
-            Position(-1, -1, 2),
-            Position(-2, 1, 1),
-            Position(-1, 2, -1),
-            Position(1, 1, -2),
-        ]
 
     def possible_moves(self, board):
         possible_moves = []
@@ -49,7 +30,3 @@ class Queen(Piece):
                 # possible_moves.append(new_hex)
         info(f"Possible Moves are {possible_moves}")
         return possible_moves
-
-    def legal_moves(self, board):
-        legal_moves = self.possible_moves(board)
-        return legal_moves
