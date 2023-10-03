@@ -2,6 +2,8 @@
 
 This is a Python (pygame) GUI source project that allows two players to play hex chess in a window
 
+!!! GAME IS CURRENTLY PLAYABLE !!!
+
 # What is Hex Chess
 
 You've played normal chess, with 64 squares, 8 pawns, various special pieces that you try to checkmate the opponents King.
