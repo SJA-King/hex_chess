@@ -60,7 +60,3 @@ class Piece(ABC):
         else:
             board.selected_piece = None  # todo could optimise this
             return False
-
-    def attacking_hexes(self, board):
-        """ Return hex piece can 'attack' (True for all pieces but Pawn)"""
-        return self.legal_moves(board)

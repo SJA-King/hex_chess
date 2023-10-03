@@ -73,7 +73,3 @@ class Pawn(Piece):
                 pass
 
         return legal_moves
-
-    def attacking_hexes(self, board):
-        """ Return the diagonal moves """
-        return [i for i in self.legal_moves(board) if i.position.q != self.position.q]

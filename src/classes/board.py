@@ -1,5 +1,7 @@
 import math
-from typing import List, Union
+from typing import List, Union, Type
+
+import pygame.surface
 
 from src.classes.hexes import HexTile
 from src.classes.piece import Piece
@@ -20,7 +22,7 @@ class Board:
                  screen_height: int = 0):
         self.mid_col_length = middle_column_length
         if screen_height == 0 or screen_width == 0:
-            die(f"Screen Size is Non-existent")
+            die("Screen Size is Non-existent")
         self.middle_x = screen_width / 2
         self.middle_y = screen_height / 2
         self.radius_of_hex = math.floor(int((screen_height / self.mid_col_length) / 2))
@@ -33,7 +35,8 @@ class Board:
 
     def create_hexagon(self, colour, position: Position) -> HexTile:
         """Creates a hexagon tile at the specified position"""
-        new_hex_tile = HexTile(colour, middle_hex_xy=(self.middle_x, self.middle_y), position=position, radius=self.radius_of_hex)
+        new_hex_tile = HexTile(colour, middle_hex_xy=(self.middle_x, self.middle_y), position=position,
+                               radius=self.radius_of_hex)
         self.xy_to_positions[(new_hex_tile.x, new_hex_tile.y)] = position
         return new_hex_tile
 
@@ -55,7 +58,8 @@ class Board:
                 for i_pos in Position(0, 1, -1), Position(1, -1, 0), Position(-1, 0, 1):
                     new_hex_position = the_hex.position + i_pos
                     if new_hex_position not in self.positions_to_hextiles:
-                        new_positions[new_hex_position] = self.create_hexagon(next(next(the_hex.colour)), new_hex_position)
+                        new_positions[new_hex_position] = self.create_hexagon(next(next(the_hex.colour)),
+                                                                              new_hex_position)
 
             self.positions_to_hextiles = new_positions.copy()
 
@@ -65,7 +69,7 @@ class Board:
 
     def get_hex_from_position(self, position: Position) -> Union[HexTile, None]:
         if position not in self.positions_to_hextiles:
-            # TODO add warning here
+            warn(f"Didnt get a Hex at Position = {position}")
             return None
         return self.positions_to_hextiles[position]
 
@@ -90,62 +94,51 @@ class Board:
             return None
         return self.get_hex_from_position(closest_position)
 
-    def place_piece_on_hex(self, position: Position, piece, colour) -> None:
-        self.positions_to_hextiles[position].piece_on_hex = piece(colour=colour, position=position, hex_height=self.hex_height, hex_width=self.hex_width)
+    def place_piece_on_hex(self, position: Position, piece: Type[Piece], colour: PlayerColour) -> None:
+        self.positions_to_hextiles[position].piece_on_hex = piece(colour=colour, position=position,
+                                                                  hex_height=self.hex_height, hex_width=self.hex_width)
 
-    def place_white_piece_on_hex(self, position: Position, piece) -> None:
+    def place_white_piece_on_hex(self, position: Position, piece: Type[Piece]) -> None:
         self.place_piece_on_hex(position=position, piece=piece, colour=PlayerColour.WHITE)
 
-    def place_black_piece_on_hex(self, position: Position, piece) -> None:
+    def place_black_piece_on_hex(self, position: Position, piece: Type[Piece]) -> None:
         self.place_piece_on_hex(position=position, piece=piece, colour=PlayerColour.BLACK)
 
-    def place_black_starting_pieces(self):
-        self.place_black_pawns()
+    def place_black_starting_pieces(self) -> None:
+        self.place_black_piece_on_hex(position=Position(0, -1, 1), piece=Pawn)
+        for i_q in range(1, 5):
+            self.place_black_piece_on_hex(position=Position(-i_q, -1, 1 + i_q), piece=Pawn)
+            self.place_black_piece_on_hex(position=Position(i_q, -1 - i_q, 1), piece=Pawn)
 
         for i_rs in range(3, 6):
             self.place_black_piece_on_hex(position=Position(0, -i_rs, i_rs), piece=Bishop)
 
-        self.place_black_piece_on_hex(position=Position(1, -5, 4), piece=King)
-        self.place_black_piece_on_hex(position=Position(2, -5, 3), piece=Knight)
-        self.place_black_piece_on_hex(position=Position(-2, -3, 5), piece=Knight)
-        self.place_black_piece_on_hex(position=Position(-1, -4, 5), piece=Queen)
-        self.place_black_piece_on_hex(position=Position(3, -5, 2), piece=Rook)
-        self.place_black_piece_on_hex(position=Position(-3, -2, 5), piece=Rook)
+        for position, piece in [[Position(1, -5, 4), King],
+                                [Position(2, -5, 3), Knight], [Position(-2, -3, 5), Knight],
+                                [Position(-1, -4, 5), Queen],
+                                [Position(3, -5, 2), Rook], [Position(-3, -2, 5), Rook]]:
+            self.place_black_piece_on_hex(position=position, piece=piece)
 
-    def place_black_pawns(self):
-        self.place_black_piece_on_hex(position=Position(0, -1, 1), piece=Pawn)
+    def place_white_starting_pieces(self) -> None:
+        self.place_white_piece_on_hex(position=Position(0, 1, -1), piece=Pawn)
         for i_q in range(1, 5):
-            a_position = Position(-i_q, -1, 1 + i_q)
-            self.place_black_piece_on_hex(position=a_position, piece=Pawn)
-            a_position = Position(i_q, -1 - i_q, 1)
-            self.place_black_piece_on_hex(position=a_position, piece=Pawn)
-
-    def place_white_starting_pieces(self):
-        self.place_white_pawns()
+            self.place_white_piece_on_hex(position=Position(i_q, 1, -1 - i_q), piece=Pawn)
+            self.place_white_piece_on_hex(position=Position(-i_q, 1 + i_q, -1), piece=Pawn)
 
         for i_rs in range(3, 6):
             self.place_white_piece_on_hex(position=Position(0, i_rs, -i_rs), piece=Bishop)
 
-        self.place_white_piece_on_hex(position=Position(1, 4, -5), piece=King)
-        self.place_white_piece_on_hex(position=Position(2, 3, -5), piece=Knight)
-        self.place_white_piece_on_hex(position=Position(-2, 5, -3), piece=Knight)
-        self.place_white_piece_on_hex(position=Position(-1, 5, -4), piece=Queen)
-        self.place_white_piece_on_hex(position=Position(3,2,-5), piece=Rook)
-        self.place_white_piece_on_hex(position=Position(-3,5,-2), piece=Rook)
+        for position, piece in [[Position(1, 4, -5), King],
+                                [Position(2, 3, -5), Knight], [Position(-2, 5, -3), Knight],
+                                [Position(-1, 5, -4), Queen],
+                                [Position(3, 2, -5), Rook], [Position(-3, 5, -2), Rook]]:
+            self.place_white_piece_on_hex(position=position, piece=piece)
 
-    def place_white_pawns(self):
-        self.place_white_piece_on_hex(position=Position(0, 1, -1), piece=Pawn)
-        for i_q in range(1, 5):
-            a_position = Position(i_q, 1, -1 - i_q)
-            self.place_white_piece_on_hex(position=a_position, piece=Pawn)
-            a_position = Position(-i_q, 1 + i_q, -1)
-            self.place_white_piece_on_hex(position=a_position, piece=Pawn)
-
-    def handle_click(self, mouse_x: int, mouse_y: int):# -> HexTile:
+    def handle_click(self, mouse_x: int, mouse_y: int) -> Union[HexTile, None]:
         clicked_hex = self.get_hex_from_xy(mouse_x, mouse_y)
         info(f"Clicked Hex {clicked_hex}")
         if not clicked_hex:
-            return
+            return None
         if self.selected_piece is None:
             if clicked_hex.piece_on_hex is not None:
                 if clicked_hex.piece_on_hex.colour == self.turn:
@@ -159,7 +152,7 @@ class Board:
                 self.selected_piece = clicked_hex.piece_on_hex
         return clicked_hex
 
-    def render(self, screen):#, hexagons: list[HexTile]):
+    def render(self, screen: pygame.surface.Surface) -> None:
         """Renders hexagons on the screen"""
         if self.selected_piece is not None:
             self.get_hex_from_position(self.selected_piece.position).highlight = True
@@ -167,4 +160,3 @@ class Board:
                 a_hex.highlight = True
         for hexagon in self.hexagons:
             hexagon.render(screen)
-
