@@ -41,22 +41,33 @@ class Piece(ABC):
     def legal_moves(self, board):
         pass
 
+    def promote_pawn(self, board, new_hex):
+        promote = False
+        if self.colour == PlayerColour.WHITE and board.is_position_at_top(new_hex.position):
+            promote = True
+        if self.colour == PlayerColour.BLACK and board.is_position_at_bottom(new_hex.position):
+            promote = True
+        if promote:
+            from src.classes.queen import Queen
+            board.place_piece_on_hex(new_hex.position, Queen, self.colour)
+            info(f"Promoted {self.colour.value}-{PieceNames.Pawn.value} TO {PieceNames.Queen.value}")
+
     def move(self, board, new_hex):
         for i_hex in board.hexagons:
             i_hex.highlight = False
-        if new_hex in self.legal_moves(board):
 
+        board.selected_piece = None
+        if new_hex in self.legal_moves(board):
             old_hex = board.get_hex_from_position(self.position)
-            info(f"Move from {old_hex}")
+            info(f"Move from {old_hex} to {new_hex}")
             self.position = new_hex.position
             new_hex.piece_on_hex = old_hex.piece_on_hex
             old_hex.piece_on_hex = None
-
-            board.selected_piece = None  # todo could optimise this
             self.moved = True
-            info(f"Move to {new_hex}")
+
+            if self.name == PieceNames.Pawn:
+                self.promote_pawn(board, new_hex)
 
             return True
-        else:
-            board.selected_piece = None  # todo could optimise this
-            return False
+
+        return False

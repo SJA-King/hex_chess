@@ -39,7 +39,7 @@ HexTiles have their own coordinate system of q, r, s - to which a HexTile AND a 
 - Re-use the 'kick stepping' code across rook, bishop, queen
 - Add a check for 'in check'
 - Add a check if in checkmate, player wins
-- Add the ability for a Pawn to be Promoted
+- ~~Add the ability for a Pawn to be Promoted~~
 - Add the ability for a Pawn to En passant 
 - log what pieces a piece took
 - log turn and piece moves

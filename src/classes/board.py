@@ -25,12 +25,15 @@ class Board:
         self.middle_y = screen_height / 2
         self.radius_of_hex = math.floor(int((screen_height / self.mid_col_length) / 2))
         self.positions_to_hextiles: dict[Position, HexTile] = {}
+        self.positions_at_top = []
+        self.positions_at_bottom = []
         self.xy_to_positions: dict[(float, float), Position] = {}
-        self.hex_height = 0
-        self.hex_width = 0
+        self.hex_height: int = 0
+        self.hex_width: int = 0
         self.turn: PlayerColour = PlayerColour.WHITE
         self.selected_piece: Union[Piece, None] = None
         self.set_hex_info = False
+        self.board_size: int = 5
 
     def create_hexagon(self, colour: HexColours, position: Position) -> HexTile:
         """Creates a hexagon tile at the specified position"""
@@ -52,7 +55,7 @@ class Board:
         self.set_hex_info = True
 
     def fill_board_with_hextiles(self) -> None:
-        for _ in range(5):
+        for _ in range(self.board_size):
             new_positions = self.positions_to_hextiles.copy()
             for hex_position, the_hex in self.positions_to_hextiles.items():
                 for i_pos in Position(0, -1, 1), Position(1, 0, -1), Position(-1, 1, 0):
@@ -67,6 +70,18 @@ class Board:
                                                                               new_hex_position)
 
             self.positions_to_hextiles = new_positions.copy()
+
+    def is_position_at_top(self, position: Position) -> bool:
+        if position.s == self.board_size or position.r == -self.board_size:
+            info(f"position: {position} at TOP!")
+            return True
+        return False
+
+    def is_position_at_bottom(self, position: Position) -> bool:
+        if position.s == -self.board_size or position.r == self.board_size:
+            info(f"position: {position} at BOTTOM!")
+            return True
+        return False
 
     @property
     def hexagons(self):
