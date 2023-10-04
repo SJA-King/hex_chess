@@ -42,9 +42,9 @@ HexTiles have their own coordinate system of q, r, s - to which a HexTile AND a 
 - log what pieces a piece took
 - log turn and piece moves
 - add a pieces value back in (e.g. pawn=1, queen=9?)
-- starting position
-- current position
-- last position
+- ~~starting position~~
+- ~~current position~~
+- ~~last position~~
 - need to have a list of pieces a player has
 
 # Links

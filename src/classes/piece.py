@@ -12,14 +12,13 @@ class Piece(ABC):
     name: PieceNames = None
     colour: PlayerColour = None
     position: Position = None
+    start_position: Position = position
+    last_position: Position = position
     hex_width: int = 0
     hex_height: int = 0
     img: pygame.Surface = None
     turn_moved: int = 0
     enpassant: bool = False
-
-    def __post_init__(self):
-        self.moved = False
 
     def __str__(self):
         return f"{self.name} : {self.colour} : {self.position} : Moved={self.turn_moved}"
@@ -65,6 +64,7 @@ class Piece(ABC):
             old_hex = board.get_hex_from_position(self.position)
             info(f"Move from {old_hex} to {new_hex}")
 
+            self.last_position = self.position
             self.position = new_hex.position
 
             new_hex.piece_on_hex = old_hex.piece_on_hex
