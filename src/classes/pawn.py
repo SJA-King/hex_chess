@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Union
 
 from src.classes.piece import Piece
 from src.classes.position import Position
@@ -39,7 +40,7 @@ class Pawn(Piece):
         info(f"Possible Moves are {possible_moves}")
         return possible_moves
 
-    def legal_moves(self, board):
+    def legal_moves(self, board, turn):
         legal_moves = []
         for a_hex in self.possible_moves(board):
             if a_hex.piece_on_hex is None:
@@ -66,6 +67,21 @@ class Pawn(Piece):
                         # it's the same colour
                         pass
                 else:
+                    # En Passant
+                    enpassant_hex: HexTile = Union[HexTile, None]
+                    if self.colour == PlayerColour.WHITE:
+                        new_position += Position(0, 1, -1)
+                        enpassant_hex = board.get_hex_from_position(new_position)
+                    if self.colour == PlayerColour.BLACK:
+                        new_position += Position(0, -1, 1)
+                        enpassant_hex = board.get_hex_from_position(new_position)
+                    if enpassant_hex:
+                        if enpassant_hex.piece_on_hex:
+                            if enpassant_hex.piece_on_hex.colour != self.colour:
+                                if enpassant_hex.piece_on_hex.name == PieceNames.Pawn:
+                                    if enpassant_hex.piece_on_hex.turn_moved == turn - 1:
+                                        legal_moves.append(new_hex)
+
                     # there's no piece to 'attack'
                     pass
             else:

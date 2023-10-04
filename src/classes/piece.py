@@ -38,7 +38,7 @@ class Piece(ABC):
         pass
 
     @abstractmethod
-    def legal_moves(self, board):
+    def legal_moves(self, board, turn):
         pass
 
     def promote_pawn(self, board, new_hex):
@@ -57,7 +57,7 @@ class Piece(ABC):
             i_hex.highlight = False
 
         board.selected_piece = None
-        if new_hex in self.legal_moves(board):
+        if new_hex in self.legal_moves(board, turn):
             old_hex = board.get_hex_from_position(self.position)
             info(f"Move from {old_hex} to {new_hex}")
             self.position = new_hex.position

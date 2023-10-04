@@ -43,6 +43,6 @@ class Rook(Piece):
         info(f"Possible Moves are {possible_moves}")
         return possible_moves
 
-    def legal_moves(self, board):
+    def legal_moves(self, board, turn):
         legal_moves = self.possible_moves(board)
         return legal_moves

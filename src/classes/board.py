@@ -88,6 +88,7 @@ class Board:
     def hexagons(self):
         return list(self.positions_to_hextiles.values())
 
+    # TODO change this to just .get()!
     def get_hex_from_position(self, position: Position) -> Union[HexTile, None]:
         if position not in self.positions_to_hextiles:
             warn(f"Didnt get a Hex at Position = {position}")
@@ -181,7 +182,7 @@ class Board:
         """Renders hexagons on the screen"""
         if self.selected_piece is not None:
             self.get_hex_from_position(self.selected_piece.position).highlight = True
-            for a_hex in self.selected_piece.legal_moves(self):
+            for a_hex in self.selected_piece.legal_moves(self, self.turn_number):
                 a_hex.highlight = True
         for hexagon in self.hexagons:
             hexagon.render(screen)
