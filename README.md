@@ -30,8 +30,6 @@ HexTiles have their own coordinate system of q, r, s - to which a HexTile AND a 
 
 # Limitations
 - All pieces move, but DONT understand 'in check' or 'checkmate'
-- Pawns cant PROMOTE
-- Pawns cant en passant
 - Maybe 80% of a HexTile is registered via a click (Game will return none if it cant find it)
 
 ## TODO
