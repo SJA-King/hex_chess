@@ -40,7 +40,7 @@ HexTiles have their own coordinate system of q, r, s - to which a HexTile AND a 
 - Add a check for 'in check'
 - Add a check if in checkmate, player wins
 - ~~Add the ability for a Pawn to be Promoted~~
-- Add the ability for a Pawn to En passant 
+- ~~Add the ability for a Pawn to En passant~~
 - log what pieces a piece took
 - log turn and piece moves
 - add a pieces value back in (e.g. pawn=1, queen=9?)

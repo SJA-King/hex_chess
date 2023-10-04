@@ -4,7 +4,7 @@ from dataclasses import dataclass
 import pygame
 from abc import ABC, abstractmethod
 from src.classes.position import Position
-from src.classes.constants import PlayerColour,  PieceNames, images_path, info
+from src.classes.constants import PlayerColour,  PieceNames, images_path, info, warn
 
 
 @dataclass
@@ -16,6 +16,7 @@ class Piece(ABC):
     hex_height: int = 0
     img: pygame.Surface = None
     turn_moved: int = 0
+    enpassant: bool = False
 
     def __post_init__(self):
         self.moved = False
@@ -42,6 +43,9 @@ class Piece(ABC):
         pass
 
     def promote_pawn(self, board, new_hex):
+        if self.name != PieceNames.Pawn:
+            warn(f"A Piece ({self.name}) cant be promoted like a {PieceNames.Pawn}!")
+            return
         promote = False
         if self.colour == PlayerColour.WHITE and board.is_position_at_top(new_hex.position):
             promote = True
@@ -60,8 +64,19 @@ class Piece(ABC):
         if new_hex in self.legal_moves(board, turn):
             old_hex = board.get_hex_from_position(self.position)
             info(f"Move from {old_hex} to {new_hex}")
+
             self.position = new_hex.position
+
             new_hex.piece_on_hex = old_hex.piece_on_hex
+            if self.enpassant:
+                new_position = None
+                if self.colour == PlayerColour.WHITE:
+                    new_position = new_hex.position + Position(0, 1, -1)
+                if self.colour == PlayerColour.BLACK:
+                    new_position = new_hex.position + Position(0, -1, 1)
+                enpassant_hex = board.get_hex_from_position(new_position)
+                enpassant_hex.piece_on_hex = None
+
             old_hex.piece_on_hex = None
             self.turn_moved = turn
 

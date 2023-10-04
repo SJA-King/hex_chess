@@ -81,9 +81,10 @@ class Pawn(Piece):
                                 if enpassant_hex.piece_on_hex.name == PieceNames.Pawn:
                                     if enpassant_hex.piece_on_hex.turn_moved == turn - 1:
                                         legal_moves.append(new_hex)
-
-                    # there's no piece to 'attack'
-                    pass
+                                        self.enpassant = True
+                    else:
+                        # there's no piece to 'attack'
+                        pass
             else:
                 # there is no hex
                 pass
