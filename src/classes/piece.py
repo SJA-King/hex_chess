@@ -15,13 +15,13 @@ class Piece(ABC):
     hex_width: int = 0
     hex_height: int = 0
     img: pygame.Surface = None
-    moved: bool = None
+    turn_moved: int = 0
 
     def __post_init__(self):
         self.moved = False
 
     def __str__(self):
-        return f"{self.name} : {self.colour} : {self.position} : Moved={self.moved}"
+        return f"{self.name} : {self.colour} : {self.position} : Moved={self.turn_moved}"
 
     def set_image(self, hex_width: int = 0, hex_height: int = 0):
         # TODO remove hex_{height,width} as memebers
@@ -52,7 +52,7 @@ class Piece(ABC):
             board.place_piece_on_hex(new_hex.position, Queen, self.colour)
             info(f"Promoted {self.colour.value}-{PieceNames.Pawn.value} TO {PieceNames.Queen.value}")
 
-    def move(self, board, new_hex):
+    def move(self, board, new_hex, turn: int):
         for i_hex in board.hexagons:
             i_hex.highlight = False
 
@@ -63,7 +63,7 @@ class Piece(ABC):
             self.position = new_hex.position
             new_hex.piece_on_hex = old_hex.piece_on_hex
             old_hex.piece_on_hex = None
-            self.moved = True
+            self.turn_moved = turn
 
             if self.name == PieceNames.Pawn:
                 self.promote_pawn(board, new_hex)

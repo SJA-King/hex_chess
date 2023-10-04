@@ -34,6 +34,7 @@ class Board:
         self.selected_piece: Union[Piece, None] = None
         self.set_hex_info = False
         self.board_size: int = 5
+        self.turn_number: int = 1
 
     def create_hexagon(self, colour: HexColours, position: Position) -> HexTile:
         """Creates a hexagon tile at the specified position"""
@@ -166,8 +167,10 @@ class Board:
                 if clicked_hex.piece_on_hex.colour == self.turn:
                     self.selected_piece = clicked_hex.piece_on_hex
 
-        elif self.selected_piece.move(self, clicked_hex):
+        elif self.selected_piece.move(self, clicked_hex, self.turn_number):
+            info(f"Player-{self.turn.value}, Turn {self.turn_number}")
             self.turn = PlayerColour.WHITE if self.turn == PlayerColour.BLACK else PlayerColour.BLACK
+            self.turn_number += 1
 
         elif clicked_hex.piece_on_hex is not None:
             if clicked_hex.piece_on_hex.colour == self.turn:

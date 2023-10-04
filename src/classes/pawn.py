@@ -17,12 +17,12 @@ class Pawn(Piece):
         moves = []
         if self.colour == PlayerColour.WHITE:
             moves.append(Position(0, -1, 1))
-            if not self.moved:
+            if self.turn_moved == 0:
                 moves.append(Position(0, -2, 2))
 
         elif self.colour == PlayerColour.BLACK:
             moves.append(Position(0, 1, -1))
-            if not self.moved:
+            if self.turn_moved == 0:
                 moves.append(Position(0, 2, -2))
         else:
             print(f"Error - Pawn Colour not in {PlayerColour}")
