@@ -46,6 +46,7 @@ class Board:
         return new_hex_tile
 
     def make_first_hex(self):
+        """ Create the First Hex (generally the middle one)"""
         if self.set_hex_info:
             die("Trying to Set First Hex Again!")
         centre_position = Position(0, 0, 0)
@@ -56,6 +57,7 @@ class Board:
         self.set_hex_info = True
 
     def fill_board_with_hextiles(self) -> None:
+        """ Using the first hex as a template, compute the surronding hexes for the outgoing rings of hexes to make a board """
         for _ in range(self.board_size):
             new_positions = self.positions_to_hextiles.copy()
             for hex_position, the_hex in self.positions_to_hextiles.items():
@@ -73,12 +75,14 @@ class Board:
             self.positions_to_hextiles = new_positions.copy()
 
     def is_position_at_top(self, position: Position) -> bool:
+        """ Check if a position (representing a HexTile) is at the TOP of the board """
         if position.s == self.board_size or position.r == -self.board_size:
             info(f"position: {position} at TOP!")
             return True
         return False
 
     def is_position_at_bottom(self, position: Position) -> bool:
+        """ Check if a position (representing a HexTile) is at the BOTTOM of the board """
         if position.s == -self.board_size or position.r == self.board_size:
             info(f"position: {position} at BOTTOM!")
             return True
@@ -86,6 +90,7 @@ class Board:
 
     @property
     def hexagons(self):
+        """ Provide a list of all HexTiles that make up this board"""
         return list(self.positions_to_hextiles.values())
 
     # TODO change this to just .get()!
@@ -96,6 +101,7 @@ class Board:
         return self.positions_to_hextiles[position]
 
     def get_hex_from_xy(self, x: int, y: int) -> Union[HexTile, None]:
+        """ Calculate from an x, y coord pair what HexTile 'likely' contains said pair"""
         x_difference = None
         y_difference = None
         closest_x = None
@@ -117,18 +123,22 @@ class Board:
         return self.get_hex_from_position(closest_position)
 
     def place_piece_on_hex(self, position: Position, piece, colour: PlayerColour) -> None:
+        """ Place a piece_on_hex of any Piece Type on a HexTile at position"""
         self.positions_to_hextiles[position].piece_on_hex = piece(colour=colour,
                                                                   position=position,
                                                                   hex_height=self.hex_height,
                                                                   hex_width=self.hex_width)
 
     def place_white_piece_on_hex(self, position: Position, piece: Type[Piece]) -> None:
+        """ Place a White piece on a HexTile at position"""
         self.place_piece_on_hex(position=position, piece=piece, colour=PlayerColour.WHITE)
 
     def place_black_piece_on_hex(self, position: Position, piece: Type[Piece]) -> None:
+        """ Place a Black piece on a HexTile at position"""
         self.place_piece_on_hex(position=position, piece=piece, colour=PlayerColour.BLACK)
 
     def place_black_starting_pieces(self) -> None:
+        """ Place all the Black Pieces in their starting locations"""
         self.place_black_piece_on_hex(position=Position(0, -1, 1), piece=Pawn)
         for i_q in range(1, 5):
             self.place_black_piece_on_hex(position=Position(-i_q, -1, 1 + i_q), piece=Pawn)
@@ -144,6 +154,7 @@ class Board:
             self.place_black_piece_on_hex(position=position, piece=piece)
 
     def place_white_starting_pieces(self) -> None:
+        """ Place all the White Pieces in their starting locations"""
         self.place_white_piece_on_hex(position=Position(0, 1, -1), piece=Pawn)
         for i_q in range(1, 5):
             self.place_white_piece_on_hex(position=Position(i_q, 1, -1 - i_q), piece=Pawn)
@@ -159,6 +170,7 @@ class Board:
             self.place_white_piece_on_hex(position=position, piece=piece)
 
     def handle_click(self, mouse_x: int, mouse_y: int) -> Union[HexTile, None]:
+        """ For a click on the board work out what can be done with it """
         clicked_hex = self.get_hex_from_xy(mouse_x, mouse_y)
         info(f"Clicked Hex {clicked_hex}")
         if not clicked_hex:
@@ -177,6 +189,10 @@ class Board:
             if clicked_hex.piece_on_hex.colour == self.turn:
                 self.selected_piece = clicked_hex.piece_on_hex
         return clicked_hex
+
+    def in_check(self) -> bool:
+        """ Work out if the current Players' King is in check"""
+        return False
 
     def render(self, screen: pygame.surface.Surface) -> None:
         """Renders hexagons on the screen"""
