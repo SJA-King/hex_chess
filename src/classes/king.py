@@ -32,7 +32,6 @@ class King(Piece):
     def possible_moves(self, board):
         possible_moves = []
         for move in self.moves:
-            # print(move)
             new_position = self.position + move
             new_hex = board.get_hex_from_position(new_position)
             if new_hex:
@@ -49,7 +48,3 @@ class King(Piece):
                 pass
         info(f"Possible Moves are {possible_moves}")
         return possible_moves
-
-    def legal_moves(self, board, turn):
-        legal_moves = self.possible_moves(board)
-        return legal_moves

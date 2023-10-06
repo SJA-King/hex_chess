@@ -24,7 +24,7 @@ class Piece(ABC):
         return f"{self.colour}-{self.name.value} at <{self.position}>, moved turn '{self.turn_moved}'"
 
     def set_image(self, hex_width: int = 0, hex_height: int = 0):
-        # TODO remove hex_{height,width} as memebers
+        # TODO remove hex_{height,width} as members
         img_path = images_path / f"{self.colour.value}_{self.name.value}.png"
         self.img = pygame.image.load(img_path)
         self.img = pygame.transform.scale(self.img, (self.hex_width*0.85, self.hex_height*0.85))
@@ -37,9 +37,17 @@ class Piece(ABC):
     def possible_moves(self, board):
         pass
 
-    @abstractmethod
-    def legal_moves(self, board, turn):
-        pass
+    def valid_moves(self, board, turn):
+        # TODO add in the in_check method here
+        return self.possible_moves(board)
+
+    def attacking_moves(self, board, turn):
+        attacking_moves = []
+        for move in self.valid_moves(board, turn):
+            if move.piece_on_hex is not None:
+                attacking_moves.append(move)
+
+        return attacking_moves
 
     def promote_pawn(self, board, new_hex):
         if self.name != PieceNames.Pawn:
@@ -60,7 +68,7 @@ class Piece(ABC):
             i_hex.highlight = False
 
         board.selected_piece = None
-        if new_hex in self.legal_moves(board, turn):
+        if new_hex in self.valid_moves(board, turn):
             old_hex = board.get_hex_from_position(self.position)
             info(f"Move from {old_hex} to {new_hex}")
 

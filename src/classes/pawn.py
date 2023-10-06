@@ -1,10 +1,8 @@
-import sys
 from dataclasses import dataclass
-from typing import Union
 
 from src.classes.piece import Piece
 from src.classes.position import Position
-from src.classes.constants import PlayerColour, PieceNames, images_path, info, die
+from src.classes.constants import PlayerColour, PieceNames, info, die
 from src.classes.hexes import HexTile
 
 
@@ -44,8 +42,7 @@ class Pawn(Piece):
         info(f"Possible Moves are {possible_moves}")
         return possible_moves
 
-    def legal_moves(self, board, turn):
-
+    def attacking_moves(self, board, turn):
         diagonal_moves = []
         enpassant_position = None
         if self.colour == PlayerColour.WHITE:
@@ -57,14 +54,14 @@ class Pawn(Piece):
         else:
             die(f"Error - Pawn Colour not in {PlayerColour}")
 
-        legal_moves = []
+        attacking_moves = []
         for move in diagonal_moves:
             new_position = self.position + move
             new_hex: HexTile = board.get_hex_from_position(new_position)
             if new_hex:
                 if new_hex.piece_on_hex:
                     if new_hex.piece_on_hex.colour != self.colour:
-                        legal_moves.append(new_hex)
+                        attacking_moves.append(new_hex)
                     else:
                         # it's the same colour
                         pass
@@ -78,7 +75,7 @@ class Pawn(Piece):
                             if enpassant_hex.piece_on_hex.colour != self.colour:
                                 if enpassant_hex.piece_on_hex.name == PieceNames.Pawn:
                                     if enpassant_hex.piece_on_hex.turn_moved == turn - 1:
-                                        legal_moves.append(new_hex)
+                                        attacking_moves.append(new_hex)
                                         self.enpassant = True
                     else:
                         # there's no piece to 'attack'
@@ -87,4 +84,7 @@ class Pawn(Piece):
                 # there is no hex
                 pass
 
-        return legal_moves + self.possible_moves(board)
+        return attacking_moves
+
+    def valid_moves(self, board, turn):
+        return self.attacking_moves(board, turn) + self.possible_moves(board)
