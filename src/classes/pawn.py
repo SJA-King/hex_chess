@@ -1,9 +1,10 @@
+import sys
 from dataclasses import dataclass
 from typing import Union
 
 from src.classes.piece import Piece
 from src.classes.position import Position
-from src.classes.constants import PlayerColour, PieceNames, images_path, info
+from src.classes.constants import PlayerColour, PieceNames, images_path, info, die
 from src.classes.hexes import HexTile
 
 
@@ -36,26 +37,25 @@ class Pawn(Piece):
             new_position = self.position + move
             new_hex = board.get_hex_from_position(new_position)
             if new_hex:
-                possible_moves.append(new_hex)
+                if new_hex.piece_on_hex is None:
+                    possible_moves.append(new_hex)
         info(f"Possible Moves are {possible_moves}")
         return possible_moves
 
     def legal_moves(self, board, turn):
-        legal_moves = []
-        for a_hex in self.possible_moves(board):
-            if a_hex.piece_on_hex is None:
-                legal_moves.append(a_hex)
-            else:
-                break
 
         diagonal_moves = []
+        enpassant_position = None
         if self.colour == PlayerColour.WHITE:
             diagonal_moves = [Position(1, -1, 0), Position(-1, 0, 1)]
+            enpassant_position = Position(0, 1, -1)
         elif self.colour == PlayerColour.BLACK:
             diagonal_moves = [Position(1, 0, -1), Position(-1, 1, 0)]
+            enpassant_position = Position(0, -1, 1)
         else:
-            print(f"Error - Pawn Colour not in {PlayerColour}")
+            die(f"Error - Pawn Colour not in {PlayerColour}")
 
+        legal_moves = []
         for move in diagonal_moves:
             new_position = self.position + move
             new_hex: HexTile = board.get_hex_from_position(new_position)
@@ -68,13 +68,9 @@ class Pawn(Piece):
                         pass
                 else:
                     # En Passant
-                    enpassant_hex: HexTile = Union[HexTile, None]
-                    if self.colour == PlayerColour.WHITE:
-                        new_position += Position(0, 1, -1)
-                        enpassant_hex = board.get_hex_from_position(new_position)
-                    if self.colour == PlayerColour.BLACK:
-                        new_position += Position(0, -1, 1)
-                        enpassant_hex = board.get_hex_from_position(new_position)
+                    new_position += enpassant_position
+                    enpassant_hex = board.get_hex_from_position(new_position)
+
                     if enpassant_hex:
                         if enpassant_hex.piece_on_hex:
                             if enpassant_hex.piece_on_hex.colour != self.colour:
@@ -89,4 +85,4 @@ class Pawn(Piece):
                 # there is no hex
                 pass
 
-        return legal_moves
+        return legal_moves + self.possible_moves(board)
