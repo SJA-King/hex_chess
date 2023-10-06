@@ -72,3 +72,11 @@ class PlayerColour(Enum):
     NULL = ""
     WHITE = "w"  # todo change to white/black etc
     BLACK = "b"
+
+    def __str__(self):
+        if self.value == "w":
+            return "White"
+        if self.value == "b":
+            return "Black"
+        return "Null"
+

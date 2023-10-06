@@ -21,7 +21,7 @@ class Piece(ABC):
     enpassant: bool = False
 
     def __str__(self):
-        return f"{self.name} : {self.colour} : {self.position} : Moved={self.turn_moved}"
+        return f"{self.colour}-{self.name.value} at <{self.position}>, moved turn '{self.turn_moved}'"
 
     def set_image(self, hex_width: int = 0, hex_height: int = 0):
         # TODO remove hex_{height,width} as memebers

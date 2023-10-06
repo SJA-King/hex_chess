@@ -22,7 +22,7 @@ class HexTile:
         self.vertices = self.compute_vertices()
 
     def __str__(self):
-        return f"Hex : {self.colour} : <{self.position}> : ({self.piece_on_hex})"
+        return f"{self.colour}-Hex at <{self.position}> contains : ({self.piece_on_hex})"
 
     def __repr__(self):
         return str(self)

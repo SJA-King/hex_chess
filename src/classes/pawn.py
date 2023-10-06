@@ -39,6 +39,8 @@ class Pawn(Piece):
             if new_hex:
                 if new_hex.piece_on_hex is None:
                     possible_moves.append(new_hex)
+                else:
+                    break
         info(f"Possible Moves are {possible_moves}")
         return possible_moves
 
