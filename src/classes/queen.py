@@ -17,7 +17,7 @@ class Queen(King):
             new_position = self.position
             while keep_going:
                 new_position += move
-                new_hex = board.get_hex_from_position(new_position)
+                new_hex = board.positions_to_hextiles.get(new_position)
                 if new_hex:
                     if new_hex.piece_on_hex is None:
                         possible_moves.append(new_hex)

@@ -33,7 +33,7 @@ class King(Piece):
         possible_moves = []
         for move in self.moves:
             new_position = self.position + move
-            new_hex = board.get_hex_from_position(new_position)
+            new_hex = board.positions_to_hextiles.get(new_position)
             if new_hex:
                 if new_hex.piece_on_hex:
                     if new_hex.piece_on_hex.colour != self.colour:

@@ -89,16 +89,9 @@ class Board:
         return False
 
     @property
-    def hexagons(self):
+    def hexagons(self) -> list[HexTile]:
         """ Provide a list of all HexTiles that make up this board"""
         return list(self.positions_to_hextiles.values())
-
-    # TODO change this to just .get()!
-    def get_hex_from_position(self, position: Position) -> Union[HexTile, None]:
-        if position not in self.positions_to_hextiles:
-            warn(f"Didnt get a Hex at Position = {position}")
-            return None
-        return self.positions_to_hextiles[position]
 
     def get_hex_from_xy(self, x: int, y: int) -> Union[HexTile, None]:
         """ Calculate from an x, y coord pair what HexTile 'likely' contains said pair"""
@@ -117,10 +110,10 @@ class Board:
 
         if (closest_x, closest_y) in self.xy_to_positions:
             closest_position = self.xy_to_positions[(closest_x, closest_y)]
+            return self.positions_to_hextiles.get(closest_position)
         else:
             # TODO need to fix when we click too close to edge of Hex
             return None
-        return self.get_hex_from_position(closest_position)
 
     def place_piece_on_hex(self, position: Position, piece, colour: PlayerColour) -> None:
         """ Place a piece_on_hex of any Piece Type on a HexTile at position"""
@@ -197,7 +190,7 @@ class Board:
     def render(self, screen: pygame.surface.Surface) -> None:
         """Renders hexagons on the screen"""
         if self.selected_piece is not None:
-            self.get_hex_from_position(self.selected_piece.position).highlight = True
+            self.positions_to_hextiles.get(self.selected_piece.position).highlight = True
             for a_hex in self.selected_piece.valid_moves(self, self.turn_number):
                 a_hex.highlight = True
         for hexagon in self.hexagons:

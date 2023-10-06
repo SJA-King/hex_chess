@@ -33,7 +33,7 @@ class Pawn(Piece):
         possible_moves = []
         for move in self.moves:
             new_position = self.position + move
-            new_hex = board.get_hex_from_position(new_position)
+            new_hex = board.positions_to_hextiles.get(new_position)
             if new_hex:
                 if new_hex.piece_on_hex is None:
                     possible_moves.append(new_hex)
@@ -57,7 +57,7 @@ class Pawn(Piece):
         attacking_moves = []
         for move in diagonal_moves:
             new_position = self.position + move
-            new_hex: HexTile = board.get_hex_from_position(new_position)
+            new_hex: HexTile = board.positions_to_hextiles.get(new_position)
             if new_hex:
                 if new_hex.piece_on_hex:
                     if new_hex.piece_on_hex.colour != self.colour:
@@ -68,7 +68,7 @@ class Pawn(Piece):
                 else:
                     # En Passant
                     new_position += enpassant_position
-                    enpassant_hex = board.get_hex_from_position(new_position)
+                    enpassant_hex = board.positions_to_hextiles.get(new_position)
 
                     if enpassant_hex:
                         if enpassant_hex.piece_on_hex:

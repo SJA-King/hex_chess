@@ -69,7 +69,7 @@ class Piece(ABC):
 
         board.selected_piece = None
         if new_hex in self.valid_moves(board, turn):
-            old_hex = board.get_hex_from_position(self.position)
+            old_hex = board.positions_to_hextiles.get(self.position)
             info(f"Move from {old_hex} to {new_hex}")
 
             self.last_position = self.position
@@ -82,7 +82,7 @@ class Piece(ABC):
                     new_position = new_hex.position + Position(0, 1, -1)
                 if self.colour == PlayerColour.BLACK:
                     new_position = new_hex.position + Position(0, -1, 1)
-                enpassant_hex = board.get_hex_from_position(new_position)
+                enpassant_hex = board.positions_to_hextiles.get(new_position)
                 enpassant_hex.piece_on_hex = None
 
             old_hex.piece_on_hex = None
