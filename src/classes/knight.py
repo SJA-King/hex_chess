@@ -1,9 +1,8 @@
 from dataclasses import dataclass
 
-from src.classes.piece import Piece
 from src.classes.king import King
 from src.classes.position import Position
-from src.classes.constants import PieceNames, info
+from src.classes.constants import PieceNames
 
 
 @dataclass
